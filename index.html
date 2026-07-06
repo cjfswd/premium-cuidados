@@ -5,8 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium Cuidados | Homecare e Equipes Multidisciplinares</title>
 <meta name="description" content="Premium Cuidados - Assistência multidisciplinar em homecare, equipes médicas e contratação SCP para hospitais no Rio de Janeiro.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Premium Cuidados | Homecare e Equipes Multidisciplinares">
+<meta property="og:description" content="Assistência multidisciplinar em homecare e contratação SCP para hospitais no Rio de Janeiro.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --azul-escuro:#0a3d62;
@@ -14,8 +19,11 @@
     --azul-claro:#4fa8f7;
     --azul-suave:#e8f3ff;
     --branco:#ffffff;
-    --cinza:#5b6b7a;
+    --cinza:#52626f;
     --whatsapp:#25d366;
+    --z-sticky:100;
+    --z-overlay:400;
+    --z-toast:900;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -28,149 +36,198 @@
   a{text-decoration:none;color:inherit;}
   img{max-width:100%;display:block;}
   .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+  h1,h2{font-family:'Fraunces',serif;text-wrap:balance;letter-spacing:-0.02em;}
+  .icon-svg{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
 
   /* Header */
   header{
     position:fixed;top:0;left:0;right:0;
     background:rgba(255,255,255,0.97);
     box-shadow:0 2px 12px rgba(10,61,98,0.08);
-    z-index:1000;
+    z-index:var(--z-sticky);
   }
   .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1180px;margin:0 auto;}
-  .logo{font-size:22px;font-weight:800;color:var(--azul-escuro);}
+  .logo{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--azul-escuro);}
   .logo span{color:var(--azul);}
   nav ul{display:flex;gap:32px;list-style:none;}
   nav a{font-weight:500;color:var(--azul-escuro);transition:color .2s;}
   nav a:hover{color:var(--azul);}
   .nav-cta{
-    background:var(--azul);color:#fff;padding:10px 22px;border-radius:30px;font-weight:600;
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--azul);color:#fff;padding:10px 22px;border-radius:30px;font-weight:600;font-size:15px;
     transition:background .2s;
   }
   .nav-cta:hover{background:var(--azul-escuro);}
-  .menu-toggle{display:none;background:none;border:none;font-size:26px;color:var(--azul-escuro);cursor:pointer;}
+  .nav-cta .icon-svg{width:16px;height:16px;}
+  .menu-toggle{
+    display:none;background:none;border:none;padding:8px;color:var(--azul-escuro);cursor:pointer;
+  }
+  .menu-toggle .icon-svg{width:26px;height:26px;}
 
   /* Hero */
   .hero{
-    padding:170px 0 90px;
+    padding:170px 0 130px;
     background:linear-gradient(135deg,var(--azul-suave) 0%,#ffffff 60%);
     position:relative;
     overflow:hidden;
   }
   .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;}
-  .hero h1{font-size:44px;font-weight:800;line-height:1.2;margin-bottom:20px;color:var(--azul-escuro);}
+  .hero h1{font-size:clamp(30px,4.2vw,46px);font-weight:700;line-height:1.18;margin-bottom:20px;color:var(--azul-escuro);}
   .hero h1 span{color:var(--azul);}
   .hero p{font-size:18px;color:var(--cinza);margin-bottom:30px;max-width:520px;}
   .hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
   .btn{
     display:inline-flex;align-items:center;gap:10px;
     padding:15px 30px;border-radius:30px;font-weight:600;font-size:16px;
-    transition:transform .2s, box-shadow .2s;
+    transition:transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s;
   }
+  .btn .icon-svg{width:18px;height:18px;}
   .btn-primary{background:var(--azul);color:#fff;box-shadow:0 8px 20px rgba(21,101,192,0.3);}
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(21,101,192,0.4);}
   .btn-outline{border:2px solid var(--azul);color:var(--azul);}
   .btn-outline:hover{background:var(--azul);color:#fff;}
   .hero-visual{
-    background:var(--azul-escuro);
-    border-radius:24px;
-    height:400px;
+    position:relative;
+    height:400px;border-radius:24px;
     display:flex;align-items:center;justify-content:center;
     background:linear-gradient(160deg,var(--azul) 0%,var(--azul-escuro) 100%);
     box-shadow:0 25px 50px rgba(10,61,98,0.25);
+    overflow:hidden;
   }
-  .hero-visual .icon-cross{
-    font-size:100px;color:rgba(255,255,255,0.9);
+  .hero-visual svg{width:78%;height:78%;}
+
+  /* Wave dividers */
+  .wave{position:absolute;left:0;right:0;bottom:-1px;line-height:0;pointer-events:none;z-index:1;}
+  .wave svg{width:100%;height:64px;display:block;}
+  .wave .wave-line-back{animation:waveDrift 16s ease-in-out infinite alternate;transform-origin:center;}
+  @media (prefers-reduced-motion: reduce){
+    .wave .wave-line-back{animation:none;}
+  }
+  @keyframes waveDrift{
+    from{transform:translateX(0);}
+    to{transform:translateX(-40px);}
   }
 
   /* Sections common */
-  section{padding:90px 0;}
+  section{padding:90px 0;position:relative;}
   .section-title{text-align:center;max-width:680px;margin:0 auto 60px;}
+  .section-title.left{text-align:left;margin:0 0 20px;}
   .section-title .tag{
-    display:inline-block;background:var(--azul-suave);color:var(--azul);
-    padding:6px 18px;border-radius:20px;font-weight:600;font-size:13px;letter-spacing:.5px;
-    margin-bottom:16px;text-transform:uppercase;
+    display:inline-flex;align-items:center;gap:10px;
+    color:var(--azul);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;
+    margin-bottom:16px;
   }
-  .section-title h2{font-size:34px;font-weight:800;color:var(--azul-escuro);margin-bottom:14px;}
+  .section-title .tag::before{content:'';width:26px;height:2px;background:var(--azul);}
+  .section-title h2{font-size:clamp(26px,3.4vw,34px);font-weight:700;color:var(--azul-escuro);margin-bottom:14px;}
   .section-title p{color:var(--cinza);font-size:16px;}
 
   /* About */
   .about{background:var(--branco);}
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .about-copy p{color:var(--cinza);margin-bottom:20px;max-width:60ch;}
   .about-card{
     background:var(--azul-suave);border-radius:20px;padding:40px;
+    display:flex;flex-direction:column;gap:26px;
   }
-  .about-card h3{color:var(--azul-escuro);font-size:22px;margin-bottom:14px;}
-  .about-card p{color:var(--cinza);}
-  .stat-row{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap;}
+  .about-feature{display:flex;gap:16px;align-items:flex-start;}
+  .about-feature .icon{
+    width:44px;height:44px;border-radius:12px;background:#fff;color:var(--azul);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .about-feature .icon .icon-svg{width:22px;height:22px;}
+  .about-feature h3{color:var(--azul-escuro);font-size:18px;margin-bottom:6px;}
+  .about-feature p{color:var(--cinza);font-size:15px;}
+  .stat-row{display:flex;gap:30px;margin-top:10px;flex-wrap:wrap;}
   .stat{flex:1;min-width:120px;}
-  .stat b{display:block;font-size:32px;color:var(--azul);font-weight:800;}
+  .stat b{display:block;font-family:'Fraunces',serif;font-size:32px;color:var(--azul);font-weight:700;}
   .stat span{color:var(--cinza);font-size:14px;}
 
   /* Services */
   .services{background:var(--azul-suave);}
-  .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
   .card{
     background:#fff;border-radius:18px;padding:36px 28px;
-    box-shadow:0 10px 30px rgba(10,61,98,0.08);
-    transition:transform .25s, box-shadow .25s;
-    border:1px solid #eef4fb;
+    box-shadow:0 8px 20px rgba(10,61,98,0.08);
+    transition:transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s;
   }
-  .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(10,61,98,0.15);}
+  .card:hover{transform:translateY(-6px);box-shadow:0 16px 28px rgba(10,61,98,0.14);}
   .card .icon{
-    width:60px;height:60px;border-radius:14px;background:var(--azul-suave);
-    display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;color:var(--azul);
+    width:56px;height:56px;border-radius:14px;background:var(--azul-suave);
+    display:flex;align-items:center;justify-content:center;margin-bottom:20px;color:var(--azul);
   }
+  .card .icon .icon-svg{width:26px;height:26px;}
   .card h3{font-size:19px;margin-bottom:10px;color:var(--azul-escuro);}
   .card p{color:var(--cinza);font-size:15px;}
 
   /* SCP hospitais section */
   .scp{background:linear-gradient(135deg,var(--azul-escuro),var(--azul));color:#fff;}
-  .scp .section-title h2, .scp .section-title p{color:#fff;}
-  .scp .section-title .tag{background:rgba(255,255,255,0.15);color:#fff;}
-  .scp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-  .scp-item{
-    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
-    border-radius:16px;padding:26px;display:flex;gap:16px;align-items:flex-start;
+  .scp .section-title{text-align:left;max-width:none;margin:0 0 50px;}
+  .scp .section-title .tag{color:#fff;}
+  .scp .section-title .tag::before{background:#fff;}
+  .scp .section-title p{color:rgba(255,255,255,0.82);max-width:60ch;}
+  .scp-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:start;}
+  .scp-copy p{color:rgba(255,255,255,0.85);margin-bottom:22px;max-width:56ch;}
+  .discipline-list{display:flex;flex-wrap:wrap;gap:10px;}
+  .discipline-list span{
+    background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);
+    padding:8px 16px;border-radius:20px;font-size:13px;font-weight:500;
   }
-  .scp-item .num{
-    font-size:26px;font-weight:800;color:var(--azul-claro);min-width:40px;
+  .credential-panel{
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+    border-radius:20px;padding:34px;
   }
-  .scp-item h4{margin-bottom:6px;font-size:17px;}
-  .scp-item p{color:rgba(255,255,255,0.8);font-size:14px;}
+  .credential-row{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.14);}
+  .credential-row:last-child{border-bottom:none;padding-bottom:0;}
+  .credential-row:first-child{padding-top:0;}
+  .credential-row .icon{
+    width:40px;height:40px;border-radius:10px;background:rgba(255,255,255,0.14);color:#fff;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .credential-row .icon .icon-svg{width:20px;height:20px;}
+  .credential-row h4{font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;}
+  .credential-row p{font-size:16px;font-weight:600;}
 
   /* Team */
   .team{background:#fff;}
-  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
   .team-card{text-align:center;padding:30px 16px;border-radius:16px;background:var(--azul-suave);}
   .team-card .avatar{
-    width:70px;height:70px;border-radius:50%;background:var(--azul);
+    width:56px;height:56px;border-radius:50%;background:var(--azul);
     display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
-    color:#fff;font-size:26px;font-weight:700;
+    color:#fff;
   }
-  .team-card h4{color:var(--azul-escuro);margin-bottom:4px;}
+  .team-card .avatar .icon-svg{width:26px;height:26px;}
+  .team-card h4{color:var(--azul-escuro);margin-bottom:4px;font-size:16px;}
   .team-card span{color:var(--cinza);font-size:13px;}
 
   /* Contact */
   .contact{background:var(--azul-suave);}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
   .contact-info-card{
-    background:#fff;border-radius:20px;padding:40px;box-shadow:0 10px 30px rgba(10,61,98,0.08);
+    background:#fff;border-radius:20px;padding:40px;box-shadow:0 8px 24px rgba(10,61,98,0.08);
   }
   .info-row{display:flex;gap:16px;margin-bottom:24px;align-items:flex-start;}
   .info-row .icon{
-    width:46px;height:46px;border-radius:12px;background:var(--azul-suave);color:var(--azul);
-    display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+    width:44px;height:44px;border-radius:12px;background:var(--azul-suave);color:var(--azul);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
   }
+  .info-row .icon .icon-svg{width:20px;height:20px;}
   .info-row h4{color:var(--azul-escuro);font-size:16px;margin-bottom:4px;}
   .info-row p{color:var(--cinza);font-size:15px;}
-  .map-embed{border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(10,61,98,0.08);min-height:380px;}
+  .info-row a{color:var(--cinza);}
+  .info-row a:hover{color:var(--azul);}
+  .contact-actions{display:flex;flex-direction:column;gap:12px;margin-top:10px;}
+  .btn-block{width:100%;justify-content:center;}
+  .btn-secondary{border:2px solid var(--azul-escuro);color:var(--azul-escuro);}
+  .btn-secondary:hover{background:var(--azul-escuro);color:#fff;}
+  .map-embed{border-radius:20px;overflow:hidden;box-shadow:0 8px 24px rgba(10,61,98,0.08);min-height:380px;}
   .map-embed iframe{width:100%;height:100%;min-height:380px;border:0;}
 
   /* Footer */
   footer{background:var(--azul-escuro);color:#fff;padding:50px 0 24px;}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:30px;}
-  footer h3{margin-bottom:14px;}
-  footer p, footer a{color:rgba(255,255,255,0.75);font-size:14px;}
+  footer h3{margin-bottom:14px;font-family:'Fraunces',serif;font-weight:700;}
+  footer p, footer a{color:rgba(255,255,255,0.8);font-size:14px;}
   footer ul{list-style:none;}
   footer li{margin-bottom:10px;}
   footer a:hover{color:#fff;}
@@ -183,52 +240,93 @@
   .whatsapp-float{
     position:fixed;bottom:26px;right:26px;
     background:var(--whatsapp);color:#fff;
-    width:64px;height:64px;border-radius:50%;
+    width:60px;height:60px;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
     box-shadow:0 8px 24px rgba(37,211,102,0.5);
-    z-index:1000;font-size:32px;
-    animation:pulse 2.2s infinite;
+    z-index:var(--z-toast);
+    animation:pulse 2.4s infinite;
   }
+  .whatsapp-float .icon-svg{width:28px;height:28px;stroke:none;fill:currentColor;}
   @keyframes pulse{
     0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);}
     70%{box-shadow:0 0 0 16px rgba(37,211,102,0);}
     100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
   }
+  @media (prefers-reduced-motion: reduce){
+    .whatsapp-float{animation:none;}
+    .card, .btn{transition:none;}
+  }
 
+  /* Mobile nav */
   @media(max-width:900px){
-    nav ul{display:none;}
     .menu-toggle{display:block;}
+    nav{
+      position:fixed;top:70px;left:0;right:0;bottom:0;
+      background:#fff;
+      transform:translateX(100%);
+      transition:transform .3s cubic-bezier(.22,1,.36,1);
+      z-index:var(--z-overlay);
+      padding:30px 24px;
+    }
+    nav.open{transform:translateX(0);}
+    nav ul{flex-direction:column;gap:4px;}
+    nav ul li{border-bottom:1px solid var(--azul-suave);}
+    nav ul li a{display:block;padding:16px 4px;font-size:18px;}
     .hero-grid{grid-template-columns:1fr;}
     .hero-visual{order:-1;height:260px;}
     .about-grid{grid-template-columns:1fr;}
-    .cards-grid{grid-template-columns:1fr 1fr;}
     .scp-grid{grid-template-columns:1fr;}
-    .team-grid{grid-template-columns:1fr 1fr;}
+    .scp .section-title{text-align:center;}
     .contact-grid{grid-template-columns:1fr;}
     .footer-grid{grid-template-columns:1fr;}
-    .hero h1{font-size:32px;}
   }
   @media(max-width:520px){
-    .cards-grid{grid-template-columns:1fr;}
-    .team-grid{grid-template-columns:1fr;}
+    .hero{padding:150px 0 100px;}
   }
 </style>
 </head>
 <body>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ic-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol>
+    <symbol id="ic-cross" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></symbol>
+    <symbol id="ic-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="ic-activity" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></symbol>
+    <symbol id="ic-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+    <symbol id="ic-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
+    <symbol id="ic-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="ic-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+    <symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="ic-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></symbol>
+    <symbol id="ic-building" viewBox="0 0 24 24"><path d="M4 22V4a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v18"/><path d="M15 9h4a1 1 0 0 1 1 1v12"/><path d="M9 6h.01M9 10h.01M9 14h.01M9 18h.01M4 22h16"/></symbol>
+    <symbol id="ic-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+    <symbol id="ic-close" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="ic-whatsapp" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.12.11-1.81-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.15-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.28.58-.35.78-.35.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.14.07.15.12.32.02.51-.09.19-.14.31-.27.48-.14.17-.29.37-.41.5-.14.14-.28.29-.12.57.15.28.68 1.13 1.47 1.83 1.02.9 1.87 1.19 2.15 1.32.28.14.44.12.61-.07.17-.19.71-.83.9-1.11.19-.28.37-.24.61-.15.24.09 1.55.73 1.82.87.27.14.44.2.51.31.07.11.07.65-.17 1.33z"/></symbol>
+  </defs>
+</svg>
+
 <header>
   <div class="nav-wrap">
     <a class="logo" href="#top">Premium <span>Cuidados</span></a>
-    <nav>
+    <nav id="site-nav">
       <ul>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#servicos">Serviços</a></li>
-        <li><a href="#scp">SCP Hospitais</a></li>
-        <li><a href="#equipe">Equipe</a></li>
-        <li><a href="#contato">Contato</a></li>
+        <li><a href="#sobre" class="nav-link">Sobre</a></li>
+        <li><a href="#servicos" class="nav-link">Serviços</a></li>
+        <li><a href="#scp" class="nav-link">SCP Hospitais</a></li>
+        <li><a href="#equipe" class="nav-link">Equipe</a></li>
+        <li><a href="#contato" class="nav-link">Contato</a></li>
       </ul>
     </nav>
-    <a class="nav-cta" href="https://wa.me/5521965292795" target="_blank" rel="noopener">Fale Conosco</a>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a class="nav-cta" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
+        <svg class="icon-svg"><use href="#ic-chat"/></svg> Fale Conosco
+      </a>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-nav">
+        <svg class="icon-svg" id="menu-icon"><use href="#ic-menu"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -239,26 +337,45 @@
       <p>A Premium Cuidados oferece assistência homecare completa e equipes médicas e multidisciplinares, além de contratação SCP para hospitais, com excelência e acolhimento.</p>
       <div class="hero-btns">
         <a class="btn btn-primary" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
-          💬 Falar no WhatsApp
+          <svg class="icon-svg"><use href="#ic-chat"/></svg> Falar no WhatsApp
         </a>
         <a class="btn btn-outline" href="#servicos">Nossos Serviços</a>
       </div>
     </div>
     <div class="hero-visual">
-      <div class="icon-cross">🩺</div>
+      <svg viewBox="0 0 300 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="2">
+          <line x1="80" y1="70" x2="150" y2="130"/>
+          <line x1="220" y1="60" x2="150" y2="130"/>
+          <line x1="150" y1="130" x2="90" y2="195"/>
+          <line x1="150" y1="130" x2="210" y2="200"/>
+        </g>
+        <circle cx="150" cy="130" r="30" fill="rgba(255,255,255,0.95)"/>
+        <circle cx="80" cy="70" r="18" fill="rgba(255,255,255,0.8)"/>
+        <circle cx="220" cy="60" r="18" fill="rgba(255,255,255,0.8)"/>
+        <circle cx="90" cy="195" r="18" fill="rgba(255,255,255,0.8)"/>
+        <circle cx="210" cy="200" r="18" fill="rgba(255,255,255,0.8)"/>
+        <path d="M138 130 L146 130 L149 122 L153 138 L157 130 L162 130" stroke="#1565c0" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,60 C240,20 480,100 720,60 C960,20 1200,90 1440,60 L1440,100 L0,100 Z" fill="#ffffff" fill-opacity="0.55"/>
+      <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,40 L1440,100 L0,100 Z" fill="#ffffff"/>
+    </svg>
   </div>
 </section>
 
 <section class="about" id="sobre">
   <div class="container about-grid">
-    <div>
-      <div class="section-title" style="text-align:left;margin:0 0 20px;">
+    <div class="about-copy">
+      <div class="section-title left">
         <span class="tag">Sobre nós</span>
         <h2>Assistência multidisciplinar com quem entende de cuidado</h2>
       </div>
-      <p style="color:var(--cinza);margin-bottom:20px;">A Premium Cuidados atua no homecare e na formação de equipes multidisciplinares e médicas, oferecendo suporte completo para pacientes, famílias e instituições hospitalares através da contratação SCP (Sociedade em Conta de Participação).</p>
-      <p style="color:var(--cinza);">Nosso compromisso é proporcionar cuidado de qualidade, com profissionais qualificados e um atendimento humanizado, seguro e personalizado.</p>
+      <p>A Premium Cuidados atua no homecare e na formação de equipes multidisciplinares e médicas, oferecendo suporte completo para pacientes, famílias e instituições hospitalares através da contratação SCP (Sociedade em Conta de Participação).</p>
+      <p>Nosso compromisso é proporcionar cuidado de qualidade, com profissionais qualificados e um atendimento humanizado, seguro e personalizado.</p>
       <div class="stat-row">
         <div class="stat"><b>+10</b><span>Anos de experiência</span></div>
         <div class="stat"><b>24h</b><span>Disponibilidade</span></div>
@@ -266,12 +383,27 @@
       </div>
     </div>
     <div class="about-card">
-      <h3>🏥 Parceria com Hospitais</h3>
-      <p>Trabalhamos em modelo SCP com instituições hospitalares, disponibilizando equipes médicas e multidisciplinares completas, com gestão eficiente e conformidade contratual.</p>
-      <br>
-      <h3>🏠 Cuidado em Casa</h3>
-      <p>Serviços de homecare personalizados, levando conforto e segurança para o tratamento do paciente em seu próprio lar.</p>
+      <div class="about-feature">
+        <div class="icon"><svg class="icon-svg"><use href="#ic-cross"/></svg></div>
+        <div>
+          <h3>Parceria com Hospitais</h3>
+          <p>Trabalhamos em modelo SCP com instituições hospitalares, disponibilizando equipes médicas e multidisciplinares completas, com gestão eficiente e conformidade contratual.</p>
+        </div>
+      </div>
+      <div class="about-feature">
+        <div class="icon"><svg class="icon-svg"><use href="#ic-home"/></svg></div>
+        <div>
+          <h3>Cuidado em Casa</h3>
+          <p>Serviços de homecare personalizados, levando conforto e segurança para o tratamento do paciente em seu próprio lar.</p>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,50 C240,10 480,90 720,50 C960,10 1200,80 1440,50 L1440,100 L0,100 Z" fill="#e8f3ff" fill-opacity="0.6"/>
+      <path d="M0,35 C240,80 480,5 720,35 C960,70 1200,15 1440,35 L1440,100 L0,100 Z" fill="#e8f3ff"/>
+    </svg>
   </div>
 </section>
 
@@ -284,36 +416,42 @@
     </div>
     <div class="cards-grid">
       <div class="card">
-        <div class="icon">🏠</div>
+        <div class="icon"><svg class="icon-svg"><use href="#ic-home"/></svg></div>
         <h3>Homecare</h3>
         <p>Atendimento domiciliar completo, com equipe multidisciplinar dedicada ao conforto e recuperação do paciente.</p>
       </div>
       <div class="card">
-        <div class="icon">👩‍⚕️</div>
+        <div class="icon"><svg class="icon-svg"><use href="#ic-users"/></svg></div>
         <h3>Equipes Multidisciplinares</h3>
-        <p>Médicos, enfermeiros, fisioterapeutas, nutricionistas e psicólogos atuando de forma integrada.</p>
+        <p>Médicos especialistas, enfermeiros, fisioterapeutas, fonoaudiólogos e psicólogos atuando de forma integrada.</p>
       </div>
       <div class="card">
-        <div class="icon">🏥</div>
+        <div class="icon"><svg class="icon-svg"><use href="#ic-cross"/></svg></div>
         <h3>Contratação SCP para Hospitais</h3>
         <p>Modelo de Sociedade em Conta de Participação para fornecimento de equipes médicas a instituições hospitalares.</p>
       </div>
       <div class="card">
-        <div class="icon">💉</div>
+        <div class="icon"><svg class="icon-svg"><use href="#ic-activity"/></svg></div>
         <h3>Enfermagem Especializada</h3>
-        <p>Profissionais de enfermagem capacitados para cuidados intensivos, curativos e procedimentos clínicos.</p>
+        <p>Enfermeiros e técnicos de enfermagem capacitados para cuidados intensivos, curativos e procedimentos clínicos.</p>
       </div>
       <div class="card">
-        <div class="icon">🧠</div>
+        <div class="icon"><svg class="icon-svg"><use href="#ic-chat"/></svg></div>
         <h3>Suporte Psicológico</h3>
         <p>Acompanhamento psicológico para pacientes e familiares durante todo o processo de tratamento.</p>
       </div>
       <div class="card">
-        <div class="icon">🍎</div>
-        <h3>Nutrição e Fisioterapia</h3>
-        <p>Planos nutricionais e sessões de fisioterapia voltados à recuperação e qualidade de vida do paciente.</p>
+        <div class="icon"><svg class="icon-svg"><use href="#ic-heart"/></svg></div>
+        <h3>Fisioterapia e Fonoaudiologia</h3>
+        <p>Sessões de fisioterapia e fonoaudiologia voltadas à recuperação e qualidade de vida do paciente.</p>
       </div>
     </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,55 C240,95 480,15 720,55 C960,95 1200,25 1440,55 L1440,100 L0,100 Z" fill="#0a3d62" fill-opacity="0.5"/>
+      <path d="M0,40 C240,0 480,85 720,40 C960,0 1200,70 1440,40 L1440,100 L0,100 Z" fill="#0a3d62"/>
+    </svg>
   </div>
 </section>
 
@@ -321,42 +459,73 @@
   <div class="container">
     <div class="section-title">
       <span class="tag">Para Hospitais</span>
-      <h2>Contratação SCP</h2>
-      <p>Um modelo de parceria eficiente para instituições hospitalares que precisam de equipes qualificadas.</p>
+      <h2>Contratação SCP com credibilidade institucional</h2>
+      <p>Um modelo de parceria eficiente para instituições hospitalares que precisam de equipes qualificadas, com respaldo jurídico e transparência total.</p>
     </div>
     <div class="scp-grid">
-      <div class="scp-item">
-        <div class="num">01</div>
-        <div><h4>Gestão de Equipes</h4><p>Recrutamento, alocação e gestão completa de profissionais médicos e multidisciplinares.</p></div>
+      <div class="scp-copy">
+        <p>Fornecemos equipes médicas e multidisciplinares completas para hospitais via Sociedade em Conta de Participação (SCP), cobrindo desde a gestão de escala até a conformidade contratual — para que sua instituição foque no cuidado, não na burocracia.</p>
+        <p style="margin-bottom:16px;font-weight:600;">Especialidades disponíveis:</p>
+        <div class="discipline-list">
+          <span>Médicos especialistas</span>
+          <span>Enfermeiros</span>
+          <span>Técnicos de enfermagem</span>
+          <span>Fisioterapeutas</span>
+          <span>Fonoaudiólogos</span>
+          <span>Psicólogos</span>
+        </div>
       </div>
-      <div class="scp-item">
-        <div class="num">02</div>
-        <div><h4>Conformidade Contratual</h4><p>Contratos SCP estruturados conforme a legislação vigente, com segurança jurídica para o hospital.</p></div>
-      </div>
-      <div class="scp-item">
-        <div class="num">03</div>
-        <div><h4>Flexibilidade Operacional</h4><p>Adaptação rápida às necessidades de escala e demanda da instituição contratante.</p></div>
-      </div>
-      <div class="scp-item">
-        <div class="num">04</div>
-        <div><h4>Qualidade Assistencial</h4><p>Profissionais selecionados e capacitados para manter o padrão de excelência hospitalar.</p></div>
+      <div class="credential-panel">
+        <div class="credential-row">
+          <div class="icon"><svg class="icon-svg"><use href="#ic-shield"/></svg></div>
+          <div>
+            <h4>CNPJ</h4>
+            <p>42.819.940/0001-57</p>
+          </div>
+        </div>
+        <div class="credential-row">
+          <div class="icon"><svg class="icon-svg"><use href="#ic-building"/></svg></div>
+          <div>
+            <h4>Hospital parceiro</h4>
+            <p>Unimed Nova Iguaçu</p>
+          </div>
+        </div>
+        <div class="credential-row">
+          <div class="icon"><svg class="icon-svg"><use href="#ic-award"/></svg></div>
+          <div>
+            <h4>Diferencial</h4>
+            <p>Equipes médicas e multidisciplinares completas em um único contrato SCP</p>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,45 C240,85 480,5 720,45 C960,85 1200,15 1440,45 L1440,100 L0,100 Z" fill="#ffffff" fill-opacity="0.5"/>
+      <path d="M0,60 C240,20 480,100 720,60 C960,20 1200,90 1440,60 L1440,100 L0,100 Z" fill="#ffffff"/>
+    </svg>
   </div>
 </section>
 
 <section class="team" id="equipe">
   <div class="container">
     <div class="section-title">
-      <span class="tag">Nossa Equipe</span>
       <h2>Profissionais dedicados ao cuidado</h2>
+      <p>Uma equipe multidisciplinar completa, pronta para atuar em casa ou dentro do hospital.</p>
     </div>
     <div class="team-grid">
-      <div class="team-card"><div class="avatar">MD</div><h4>Médicos</h4><span>Diversas especialidades</span></div>
-      <div class="team-card"><div class="avatar">EF</div><h4>Enfermagem</h4><span>Cuidados especializados</span></div>
-      <div class="team-card"><div class="avatar">FT</div><h4>Fisioterapia</h4><span>Reabilitação motora</span></div>
-      <div class="team-card"><div class="avatar">PS</div><h4>Psicologia</h4><span>Suporte emocional</span></div>
+      <div class="team-card"><div class="avatar"><svg class="icon-svg"><use href="#ic-cross"/></svg></div><h4>Médicos Especialistas</h4><span>Diversas especialidades</span></div>
+      <div class="team-card"><div class="avatar"><svg class="icon-svg"><use href="#ic-activity"/></svg></div><h4>Enfermagem</h4><span>Enfermeiros e técnicos</span></div>
+      <div class="team-card"><div class="avatar"><svg class="icon-svg"><use href="#ic-heart"/></svg></div><h4>Fisioterapia e Fono</h4><span>Reabilitação motora e da fala</span></div>
+      <div class="team-card"><div class="avatar"><svg class="icon-svg"><use href="#ic-chat"/></svg></div><h4>Psicologia</h4><span>Suporte emocional</span></div>
     </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,50 C240,10 480,90 720,50 C960,10 1200,80 1440,50 L1440,100 L0,100 Z" fill="#e8f3ff" fill-opacity="0.6"/>
+      <path d="M0,35 C240,80 480,5 720,35 C960,70 1200,15 1440,35 L1440,100 L0,100 Z" fill="#e8f3ff"/>
+    </svg>
   </div>
 </section>
 
@@ -370,37 +539,48 @@
     <div class="contact-grid">
       <div class="contact-info-card">
         <div class="info-row">
-          <div class="icon">📍</div>
+          <div class="icon"><svg class="icon-svg"><use href="#ic-pin"/></svg></div>
           <div>
             <h4>Endereço</h4>
             <p>Av. Embaixador Abelardo Bueno, 3500, Sl. 1102<br>Barra da Tijuca, Rio de Janeiro - RJ<br>22775-040, Brasil</p>
           </div>
         </div>
         <div class="info-row">
-          <div class="icon">📞</div>
+          <div class="icon"><svg class="icon-svg"><use href="#ic-phone"/></svg></div>
           <div>
             <h4>Telefone / WhatsApp</h4>
-            <p>+55 21 96529-2795</p>
+            <p><a href="tel:+5521965292795">+55 21 96529-2795</a></p>
           </div>
         </div>
         <div class="info-row">
-          <div class="icon">⏰</div>
+          <div class="icon"><svg class="icon-svg"><use href="#ic-clock"/></svg></div>
           <div>
             <h4>Atendimento</h4>
             <p>Disponível 24 horas, todos os dias da semana</p>
           </div>
         </div>
-        <a class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px;" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
-          💬 Enviar mensagem no WhatsApp
-        </a>
+        <div class="contact-actions">
+          <a class="btn btn-primary btn-block" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
+            <svg class="icon-svg"><use href="#ic-chat"/></svg> Enviar mensagem no WhatsApp
+          </a>
+          <a class="btn btn-secondary btn-block" href="tel:+5521965292795">
+            <svg class="icon-svg"><use href="#ic-phone"/></svg> Ligar agora
+          </a>
+        </div>
       </div>
       <div class="map-embed">
         <iframe
           src="https://www.google.com/maps?q=Av.+Embaixador+Abelardo+Bueno,+3500,+Barra+da+Tijuca,+Rio+de+Janeiro+-+RJ,+22775-040&output=embed"
-          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Mapa de localização Premium Cuidados">
         </iframe>
       </div>
     </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,55 C240,95 480,15 720,55 C960,95 1200,25 1440,55 L1440,100 L0,100 Z" fill="#0a3d62" fill-opacity="0.5"/>
+      <path d="M0,40 C240,0 480,85 720,40 C960,0 1200,70 1440,40 L1440,100 L0,100 Z" fill="#0a3d62"/>
+    </svg>
   </div>
 </section>
 
@@ -422,19 +602,40 @@
     <div>
       <h3>Contato</h3>
       <ul>
-        <li>+55 21 96529-2795</li>
+        <li><a href="tel:+5521965292795">+55 21 96529-2795</a></li>
         <li>Barra da Tijuca, Rio de Janeiro - RJ</li>
       </ul>
     </div>
   </div>
   <div class="container footer-bottom">
-    &copy; 2026 Premium Cuidados. Todos os direitos reservados.
+    &copy; <span id="year"></span> Premium Cuidados. Todos os direitos reservados.
   </div>
 </footer>
 
-<a class="whatsapp-float" href="https://wa.me/5521965292795" target="_blank" rel="noopener" aria-label="WhatsApp">
-  📱
+<a class="whatsapp-float" href="https://wa.me/5521965292795" target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
+  <svg class="icon-svg"><use href="#ic-whatsapp"/></svg>
 </a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  var toggle = document.getElementById('menu-toggle');
+  var nav = document.getElementById('site-nav');
+  var menuIcon = document.getElementById('menu-icon');
+  function closeMenu(){
+    nav.classList.remove('open');
+    toggle.setAttribute('aria-expanded','false');
+    menuIcon.innerHTML = '<use href="#ic-menu"></use>';
+  }
+  toggle.addEventListener('click', function(){
+    var isOpen = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    menuIcon.innerHTML = isOpen ? '<use href="#ic-close"></use>' : '<use href="#ic-menu"></use>';
+  });
+  document.querySelectorAll('.nav-link').forEach(function(link){
+    link.addEventListener('click', closeMenu);
+  });
+</script>
 
 </body>
 </html>
