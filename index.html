@@ -80,8 +80,6 @@
     content:'';position:absolute;inset:0;
     background:linear-gradient(135deg, rgba(232,243,255,0.92) 0%, rgba(255,255,255,0.85) 60%);
   }
-  .hero-parallax-bg .ph-caption{top:24px;left:24px;bottom:auto;right:auto;max-width:240px;}
-  .hero-parallax-bg .icon-svg{display:none;}
   .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;}
   .hero h1{font-size:clamp(30px,4.2vw,46px);font-weight:700;line-height:1.18;margin-bottom:20px;color:var(--azul-escuro);}
   .hero h1 span{color:var(--azul);}
@@ -106,35 +104,17 @@
     overflow:hidden;
   }
   .hero-visual svg{width:78%;height:78%;}
+  .hero-visual img,
+  .hero-parallax-bg img,
+  .team-card .avatar img,
+  .gallery-slide img{width:100%;height:100%;object-fit:cover;display:block;}
 
-  /* AI-generated image placeholders, styled to already read like a photo bay,
-     so dropping a real photo in later requires no further layout work. */
-  .img-placeholder{
-    position:relative;
-    display:flex;align-items:center;justify-content:center;
-    overflow:hidden;color:var(--azul);
-    background:radial-gradient(120% 120% at 25% 20%, #ffffff 0%, var(--azul-suave) 55%, #d3e8fc 100%);
-    box-shadow:inset 0 0 0 1px rgba(21,101,192,0.14);
-  }
-  .img-placeholder .icon-svg{
-    width:52px;height:52px;stroke-width:1.2;opacity:.4;
-    transition:transform .5s var(--ease);
-  }
-  .img-placeholder:hover .icon-svg{transform:scale(1.06);}
-  .img-placeholder .ph-caption{
-    position:absolute;left:16px;right:16px;bottom:16px;text-align:left;
-    background:rgba(10,61,98,0.68);color:#fff;padding:10px 14px;border-radius:12px;
-    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
-  }
-  .img-placeholder .ph-title{font-weight:600;font-size:13px;display:block;}
-  .img-placeholder .ph-prompt{font-size:11px;color:rgba(255,255,255,0.75);display:block;margin-top:2px;}
-  .hero-visual.img-placeholder{border-radius:24px;}
+  /* Icon-avatar placeholder, still used for the fictitious testimonial authors */
   .img-placeholder-circle{
     background:radial-gradient(120% 120% at 30% 25%, #ffffff 0%, var(--azul-suave) 100%);
     box-shadow:inset 0 0 0 1px rgba(21,101,192,0.18);
   }
-  .img-placeholder-circle .icon-svg{width:22px;height:22px;stroke-width:1.4;opacity:.5;transition:transform .4s var(--ease);}
-  .team-card:hover .img-placeholder-circle .icon-svg{transform:scale(1.08);}
+  .img-placeholder-circle .icon-svg{width:22px;height:22px;stroke-width:1.4;opacity:.5;}
 
   /* Wave dividers */
   .wave{position:absolute;left:0;right:0;bottom:-1px;line-height:0;pointer-events:none;z-index:1;}
@@ -262,9 +242,9 @@
   .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
   .team-card{text-align:center;padding:30px 16px;border-radius:16px;background:var(--azul-suave);}
   .team-card .avatar{
-    width:56px;height:56px;border-radius:50%;background:var(--azul);
+    width:72px;height:72px;border-radius:50%;background:var(--azul);
     display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
-    color:#fff;
+    color:#fff;overflow:hidden;
   }
   .team-card .avatar .icon-svg{width:26px;height:26px;}
   .team-card h4{color:var(--azul-escuro);margin-bottom:4px;font-size:16px;}
@@ -300,7 +280,7 @@
     .carousel-track .carousel-clone{display:none;}
   }
   .carousel-slide{flex:0 0 auto;width:82vw;max-width:340px;}
-  .gallery-slide{aspect-ratio:4/3;border-radius:18px;}
+  .gallery-slide{aspect-ratio:4/3;border-radius:18px;overflow:hidden;}
   .testimonial-slide{
     background:#fff;border-radius:18px;padding:32px;box-shadow:0 8px 20px rgba(10,61,98,0.18);
     display:flex;flex-direction:column;gap:14px;color:var(--azul-escuro);
@@ -446,21 +426,9 @@
 </header>
 
 <section class="hero" id="top">
-  <!--
-    IMAGEM SUGERIDA (parallax de fundo do hero): cena ampla e suave, fora de foco,
-    para servir de camada atmosférica atrás do texto (parallax ao rolar a página).
-    Deve ser MUITO suave/desfocada para não competir com o texto nem com a foto
-    em primeiro plano (.hero-visual). Prompt de IA sugerido:
-    "Extremely soft, out-of-focus photo of warm natural light streaming through
-    sheer curtains in a bright home interior, pastel blue and white tones, heavy
-    bokeh, abstract and atmospheric, no visible people, no text, no logos,
-    ultra-wide soft-focus background photography, 21:9 aspect ratio"
-  -->
-  <div class="hero-parallax-bg img-placeholder" aria-hidden="true" data-ai-prompt="Extremely soft, out-of-focus photo of warm natural light streaming through sheer curtains in a bright home interior, pastel blue and white tones, heavy bokeh, abstract and atmospheric, no visible people, no text, no logos, ultra-wide soft-focus background photography, 21:9 aspect ratio">
-    <div class="ph-caption">
-      <span class="ph-title">Fundo parallax: luz e textura ambiente</span>
-      <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-    </div>
+  <!-- Imagem gerada via IA (agy). Prompt: ver images/hero-parallax-bg.png -->
+  <div class="hero-parallax-bg" aria-hidden="true">
+    <img src="images/hero-parallax-bg.png" alt="">
   </div>
   <div class="container hero-grid">
     <div>
@@ -473,21 +441,9 @@
         <a class="btn btn-outline" href="#servicos">Nossos Serviços</a>
       </div>
     </div>
-    <!--
-      IMAGEM SUGERIDA (hero): foto real de um profissional de homecare atendendo
-      um paciente idoso em casa, num ambiente iluminado e acolhedor.
-      Prompt de IA sugerido:
-      "Professional photo of a caring home health nurse attending to an elderly
-      patient in a bright, comfortable living room in Rio de Janeiro, warm natural
-      light, genuine human connection, soft blue color grading, no text, no logos,
-      photorealistic, 4:3 aspect ratio"
-    -->
-    <div class="hero-visual img-placeholder hero-anim" style="animation-delay:150ms" data-ai-prompt="Professional photo of a caring home health nurse attending to an elderly patient in a bright, comfortable living room in Rio de Janeiro, warm natural light, genuine human connection, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
-      <svg class="icon-svg"><use href="#ic-image"/></svg>
-      <div class="ph-caption">
-        <span class="ph-title">Foto: cuidado em casa</span>
-        <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-      </div>
+    <!-- Imagem gerada via IA (agy). Prompt: ver images/hero-cuidado-em-casa.jpg -->
+    <div class="hero-visual hero-anim" style="animation-delay:150ms">
+      <img src="images/hero-cuidado-em-casa.jpg" alt="Profissional de homecare da Premium Cuidados atendendo uma paciente idosa em casa">
     </div>
   </div>
   <div class="wave" aria-hidden="true">
@@ -680,27 +636,22 @@
       <h2>Profissionais dedicados ao cuidado</h2>
       <p>Uma equipe multidisciplinar completa, pronta para atuar em casa ou dentro da instituição parceira.</p>
     </div>
-    <!--
-      IMAGENS SUGERIDAS (equipe): fotos de rosto/retrato de cada disciplina,
-      mesmo enquadramento e iluminação entre os 4 cards, mas cada prompt traz
-      elementos/figurino que caracterizam aquela profissão especificamente,
-      para que dê pra reconhecer o tipo de profissional só de bater o olho.
-    -->
+    <!-- Fotos geradas via IA (agy), uma por disciplina -->
     <div class="team-grid">
       <div class="team-card reveal-item" style="--i:0">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian physician, white coat over a collared shirt, stethoscope draped around the neck, ID badge clipped to the coat, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar"><img src="images/team-medico.jpg" alt="Retrato de um médico especialista da equipe" loading="lazy" decoding="async"></div>
         <h4>Médicos Especialistas</h4><span>Diversas especialidades</span>
       </div>
       <div class="team-card reveal-item" style="--i:1">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian nurse, navy blue scrub uniform, scrub cap, holding a blood pressure cuff, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar"><img src="images/team-enfermagem.jpg" alt="Retrato de uma enfermeira da equipe" loading="lazy" decoding="async"></div>
         <h4>Enfermagem</h4><span>Enfermeiros e técnicos</span>
       </div>
       <div class="team-card reveal-item" style="--i:2">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian physical therapist, athletic-clinical polo shirt, holding a resistance exercise band, sporty rehab-gym feel, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar"><img src="images/team-fisioterapia.jpg" alt="Retrato de uma fisioterapeuta da equipe" loading="lazy" decoding="async"></div>
         <h4>Fisioterapia e Fono</h4><span>Reabilitação motora e da fala</span>
       </div>
       <div class="team-card reveal-item" style="--i:3">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian psychologist, smart-casual blazer with no white coat, seated in a calm counseling-room setting, holding a notebook, warm approachable smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar"><img src="images/team-psicologia.jpg" alt="Retrato de uma psicóloga da equipe" loading="lazy" decoding="async"></div>
         <h4>Psicologia</h4><span>Suporte emocional</span>
       </div>
     </div>
@@ -719,44 +670,23 @@
       <h2>Momentos de cuidado</h2>
       <p>Um retrato de como atuamos no dia a dia, em casa e ao lado das instituições parceiras.</p>
     </div>
-    <!-- GALERIA: 5 fotos distintas, um prompt de IA por slide (ver data-ai-prompt
-         de cada .gallery-slide). Substituir cada placeholder pela imagem gerada. -->
+    <!-- Fotos geradas via IA (agy), uma por slide -->
     <div class="carousel reveal-item" style="--i:0; --marquee-duration:32s">
       <div class="carousel-track">
-        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a home health caregiver helping an elderly patient walk with support in a bright home hallway in Rio de Janeiro, warm candid moment, natural light, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
-          <svg class="icon-svg"><use href="#ic-image"/></svg>
-          <div class="ph-caption">
-            <span class="ph-title">Foto: caminhada assistida em casa</span>
-            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-          </div>
+        <div class="carousel-slide gallery-slide">
+          <img src="images/gallery-caminhada.jpg" alt="Caregiver ajudando paciente idosa a caminhar em casa" loading="lazy" decoding="async">
         </div>
-        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a nurse gently checking blood pressure of a smiling elderly patient seated in a cozy living room, warm natural light, genuine connection, soft blue tones, no text, no logos, photorealistic, 4:3 aspect ratio">
-          <svg class="icon-svg"><use href="#ic-image"/></svg>
-          <div class="ph-caption">
-            <span class="ph-title">Foto: acompanhamento de enfermagem</span>
-            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-          </div>
+        <div class="carousel-slide gallery-slide">
+          <img src="images/gallery-enfermagem.jpg" alt="Enfermeira verificando a pressão arterial de uma paciente" loading="lazy" decoding="async">
         </div>
-        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a physical therapist guiding an elderly patient through a light stretching exercise at home, encouraging expression, bright interior, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
-          <svg class="icon-svg"><use href="#ic-image"/></svg>
-          <div class="ph-caption">
-            <span class="ph-title">Foto: sessão de fisioterapia em casa</span>
-            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-          </div>
+        <div class="carousel-slide gallery-slide">
+          <img src="images/gallery-fisioterapia.jpg" alt="Fisioterapeuta conduzindo sessão de alongamento em casa" loading="lazy" decoding="async">
         </div>
-        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a small multidisciplinary care team (nurse, physician, therapist) having a relaxed coordination chat in a bright modern clinic break room, candid and warm, no text, no logos, photorealistic, 4:3 aspect ratio">
-          <svg class="icon-svg"><use href="#ic-image"/></svg>
-          <div class="ph-caption">
-            <span class="ph-title">Foto: equipe em coordenação de cuidado</span>
-            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-          </div>
+        <div class="carousel-slide gallery-slide">
+          <img src="images/gallery-equipe.jpg" alt="Equipe multidisciplinar em conversa de coordenação de cuidado" loading="lazy" decoding="async">
         </div>
-        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of an elderly patient and family member sharing a joyful smiling moment on a home visit day, warm afternoon light, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
-          <svg class="icon-svg"><use href="#ic-image"/></svg>
-          <div class="ph-caption">
-            <span class="ph-title">Foto: momento em família</span>
-            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-          </div>
+        <div class="carousel-slide gallery-slide">
+          <img src="images/gallery-familia.jpg" alt="Paciente idosa e familiar compartilhando um momento de alegria" loading="lazy" decoding="async">
         </div>
       </div>
     </div>
