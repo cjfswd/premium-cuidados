@@ -47,8 +47,9 @@
     box-shadow:0 2px 12px rgba(10,61,98,0.08);
     z-index:var(--z-sticky);
   }
-  .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1180px;margin:0 auto;}
-  .logo{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--azul-escuro);}
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px;max-width:1180px;margin:0 auto;}
+  .nav-actions{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+  .logo{font-family:'Fraunces',serif;font-size:22px;font-weight:700;color:var(--azul-escuro);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
   .logo span{color:var(--azul);}
   nav ul{display:flex;gap:32px;list-style:none;}
   nav a{font-weight:500;color:var(--azul-escuro);transition:color .2s;}
@@ -374,6 +375,17 @@
   }
   @media(max-width:520px){
     .hero{padding:150px 0 100px;}
+    .nav-wrap{padding:12px 16px;gap:8px;}
+    .nav-actions{gap:8px;}
+    .logo{font-size:17px;max-width:44vw;}
+    .nav-cta{padding:8px 14px;font-size:13px;gap:6px;}
+    .nav-cta .icon-svg{width:14px;height:14px;}
+    .menu-toggle{padding:6px;}
+    .menu-toggle .icon-svg{width:22px;height:22px;}
+  }
+  @media(max-width:360px){
+    .nav-cta span{display:none;}
+    .nav-cta{padding:10px;border-radius:50%;}
   }
 </style>
 </head>
@@ -414,9 +426,9 @@
         <li><a href="#contato" class="nav-link">Contato</a></li>
       </ul>
     </nav>
-    <div style="display:flex;align-items:center;gap:14px;">
-      <a class="nav-cta" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
-        <svg class="icon-svg"><use href="#ic-chat"/></svg> Fale Conosco
+    <div class="nav-actions">
+      <a class="nav-cta" href="https://wa.me/5521965292795" target="_blank" rel="noopener" aria-label="Fale Conosco no WhatsApp">
+        <svg class="icon-svg"><use href="#ic-chat"/></svg> <span>Fale Conosco</span>
       </a>
       <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="site-nav">
         <svg class="icon-svg" id="menu-icon"><use href="#ic-menu"/></svg>
