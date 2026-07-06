@@ -283,14 +283,18 @@
   .testimonials .section-title .tag{color:#fff;}
   .testimonials .section-title p{color:rgba(255,255,255,0.82);}
 
-  .carousel{position:relative;padding:0 8px;}
+  /* Continuous, indefinite marquee: JS drives scrollLeft frame by frame so
+     motion reads as one steady drift rather than a slide snapping between
+     stops. */
+  .carousel{
+    position:relative;
+  }
   .carousel-track{
-    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 4px 8px;
+    display:flex;gap:20px;overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;
   }
   .carousel-track::-webkit-scrollbar{display:none;}
-  .carousel-slide{scroll-snap-align:start;flex:0 0 82%;}
-  @media(min-width:640px){.carousel-slide{flex:0 0 360px;}}
+  .carousel-slide{flex:0 0 auto;width:82vw;max-width:340px;}
   .gallery-slide{aspect-ratio:4/3;border-radius:18px;}
   .testimonial-slide{
     background:#fff;border-radius:18px;padding:32px;box-shadow:0 8px 20px rgba(10,61,98,0.18);
@@ -302,27 +306,6 @@
   .testimonial-author .avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--azul);}
   .testimonial-author strong{display:block;font-size:14px;color:var(--azul-escuro);}
   .testimonial-author span{font-size:13px;color:var(--cinza);}
-
-  .carousel-arrow{
-    position:absolute;top:50%;transform:translateY(-50%);
-    width:44px;height:44px;border-radius:50%;background:#fff;color:var(--azul);
-    display:flex;align-items:center;justify-content:center;border:none;
-    box-shadow:0 8px 20px rgba(10,61,98,0.18);cursor:pointer;z-index:2;
-    transition:background .2s var(--ease), color .2s var(--ease);
-  }
-  .carousel-arrow .icon-svg{width:20px;height:20px;}
-  .carousel-arrow:hover{background:var(--azul);color:#fff;}
-  .carousel-arrow.prev{left:-8px;}
-  .carousel-arrow.next{right:-8px;}
-  @media(max-width:640px){.carousel-arrow{display:none;}}
-  .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:20px;}
-  .carousel-dots button{
-    width:8px;height:8px;border-radius:50%;background:rgba(21,101,192,0.25);border:none;padding:0;cursor:pointer;
-    transition:background .2s var(--ease), transform .2s var(--ease);
-  }
-  .carousel-dots button.active{background:var(--azul);transform:scale(1.3);}
-  .testimonials .carousel-dots button{background:rgba(255,255,255,0.3);}
-  .testimonials .carousel-dots button.active{background:#fff;}
 
   /* Contact */
   .contact{background:var(--azul-suave);}
@@ -431,8 +414,6 @@
     <symbol id="ic-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
     <symbol id="ic-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
     <symbol id="ic-whatsapp" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.12.11-1.81-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.15-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.28.58-.35.78-.35.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.14.07.15.12.32.02.51-.09.19-.14.31-.27.48-.14.17-.29.37-.41.5-.14.14-.28.29-.12.57.15.28.68 1.13 1.47 1.83 1.02.9 1.87 1.19 2.15 1.32.28.14.44.12.61-.07.17-.19.71-.83.9-1.11.19-.28.37-.24.61-.15.24.09 1.55.73 1.82.87.27.14.44.2.51.31.07.11.07.65-.17 1.33z"/></symbol>
-    <symbol id="ic-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
-    <symbol id="ic-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
   </defs>
 </svg>
 
@@ -763,7 +744,7 @@
     </div>
     <!-- GALERIA: 5 fotos distintas, um prompt de IA por slide (ver data-ai-prompt
          de cada .gallery-slide). Substituir cada placeholder pela imagem gerada. -->
-    <div class="carousel reveal-item" style="--i:0" data-autoplay="4200">
+    <div class="carousel reveal-item" style="--i:0" data-speed="45">
       <div class="carousel-track">
         <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a home health caregiver helping an elderly patient walk with support in a bright home hallway in Rio de Janeiro, warm candid moment, natural light, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
           <svg class="icon-svg"><use href="#ic-image"/></svg>
@@ -801,9 +782,6 @@
           </div>
         </div>
       </div>
-      <button class="carousel-arrow prev" aria-label="Foto anterior"><svg class="icon-svg"><use href="#ic-chevron-left"/></svg></button>
-      <button class="carousel-arrow next" aria-label="Próxima foto"><svg class="icon-svg"><use href="#ic-chevron-right"/></svg></button>
-      <div class="carousel-dots"></div>
     </div>
   </div>
   <div class="wave" aria-hidden="true">
@@ -824,7 +802,7 @@
     <!-- DEPOIMENTOS ILUSTRATIVOS: conteúdo fictício para fins de prototipagem.
          Substituir por depoimentos reais de pacientes, familiares e instituições
          parceiras antes de publicar oficialmente. -->
-    <div class="carousel reveal-item" style="--i:0" data-autoplay="5200">
+    <div class="carousel reveal-item" style="--i:0" data-speed="26">
       <div class="carousel-track">
         <div class="carousel-slide testimonial-slide">
           <span class="quote-mark" aria-hidden="true">&ldquo;</span>
@@ -859,9 +837,6 @@
           </div>
         </div>
       </div>
-      <button class="carousel-arrow prev" aria-label="Depoimento anterior"><svg class="icon-svg"><use href="#ic-chevron-left"/></svg></button>
-      <button class="carousel-arrow next" aria-label="Próximo depoimento"><svg class="icon-svg"><use href="#ic-chevron-right"/></svg></button>
-      <div class="carousel-dots"></div>
     </div>
   </div>
   <div class="wave" aria-hidden="true">
@@ -1046,58 +1021,49 @@
     counterEls.forEach(function(el){ counterObserver.observe(el); });
   }
 
-  // Generic carousel: scroll-snap track with autoplay, arrows, and dots
-  function initCarousel(root){
+  // Continuous marquee: content is duplicated once so the track can drift
+  // forever and wrap seamlessly, instead of snapping between discrete slides.
+  function initMarquee(root){
     var track = root.querySelector('.carousel-track');
-    var slides = Array.prototype.slice.call(track.children);
-    var dotsWrap = root.querySelector('.carousel-dots');
-    var prevBtn = root.querySelector('.carousel-arrow.prev');
-    var nextBtn = root.querySelector('.carousel-arrow.next');
-    var index = 0;
-    var autoplayMs = parseInt(root.dataset.autoplay, 10) || 4500;
-    var timer = null;
+    var pxPerSecond = parseFloat(root.dataset.speed) || 40;
 
-    var dots = slides.map(function(_, i){
-      var dot = document.createElement('button');
-      dot.setAttribute('aria-label', 'Ir para o item ' + (i + 1));
-      dot.addEventListener('click', function(){ goTo(i); resetAutoplay(); });
-      dotsWrap.appendChild(dot);
-      return dot;
+    if (prefersReducedMotion) {
+      track.style.overflowX = 'auto';
+      return; // static, manually scrollable list; no auto-motion, no clones
+    }
+
+    var originalSlides = Array.prototype.slice.call(track.children);
+    originalSlides.forEach(function(node){
+      var clone = node.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      clone.querySelectorAll('a, button').forEach(function(el){ el.tabIndex = -1; });
+      track.appendChild(clone);
     });
 
-    function updateDots(){
-      dots.forEach(function(dot, i){ dot.classList.toggle('active', i === index); });
-    }
-    function goTo(i){
-      index = (i + slides.length) % slides.length;
-      var slide = slides[index];
-      track.scrollTo({
-        left: slide.offsetLeft - track.offsetLeft,
-        behavior: prefersReducedMotion ? 'auto' : 'smooth'
-      });
-      updateDots();
-    }
-    function next(){ goTo(index + 1); }
-    function prev(){ goTo(index - 1); }
-    function startAutoplay(){
-      if (prefersReducedMotion) return;
-      stopAutoplay();
-      timer = window.setInterval(next, autoplayMs);
-    }
-    function stopAutoplay(){ window.clearInterval(timer); }
-    function resetAutoplay(){ startAutoplay(); }
+    var paused = false;
+    var lastTimestamp = null;
 
-    if (prevBtn) prevBtn.addEventListener('click', function(){ prev(); resetAutoplay(); });
-    if (nextBtn) nextBtn.addEventListener('click', function(){ next(); resetAutoplay(); });
-    root.addEventListener('mouseenter', stopAutoplay);
-    root.addEventListener('mouseleave', startAutoplay);
-    root.addEventListener('focusin', stopAutoplay);
-    root.addEventListener('focusout', startAutoplay);
+    function frame(timestamp){
+      if (lastTimestamp === null) lastTimestamp = timestamp;
+      var delta = timestamp - lastTimestamp;
+      lastTimestamp = timestamp;
+      if (!paused) {
+        track.scrollLeft += (pxPerSecond * delta) / 1000;
+        var loopPoint = track.scrollWidth / 2;
+        if (track.scrollLeft >= loopPoint) track.scrollLeft -= loopPoint;
+      }
+      window.requestAnimationFrame(frame);
+    }
+    window.requestAnimationFrame(frame);
 
-    updateDots();
-    startAutoplay();
+    root.addEventListener('mouseenter', function(){ paused = true; });
+    root.addEventListener('mouseleave', function(){ paused = false; });
+    root.addEventListener('focusin', function(){ paused = true; });
+    root.addEventListener('focusout', function(){ paused = false; });
+    root.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
+    root.addEventListener('touchend', function(){ paused = false; });
   }
-  document.querySelectorAll('.carousel').forEach(initCarousel);
+  document.querySelectorAll('.carousel').forEach(initMarquee);
 </script>
 
 </body>
