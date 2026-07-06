@@ -6,7 +6,7 @@ brand
 
 ## Users
 
-Families and patients seeking homecare (often arranging care for an elderly or recovering relative, under stress, evaluating credibility quickly) and hospital administrators/procurement contacts evaluating SCP (Sociedade em Conta de Participação) staffing partnerships for medical and multidisciplinary teams. Both audiences need to trust the brand fast on a single scroll — there's no multi-page journey to build confidence gradually.
+Families and patients seeking homecare (often arranging care for an elderly or recovering relative, under stress, evaluating credibility quickly) and hospital administrators/procurement contacts evaluating SCP (Sociedade em Conta de Participação) staffing partnerships for medical and multidisciplinary teams. Both audiences need to trust the brand fast on a single scroll; there's no multi-page journey to build confidence gradually.
 
 ## Product Purpose
 
@@ -14,7 +14,7 @@ Premium Cuidados' marketing site for a Rio de Janeiro-based homecare and multidi
 
 ## Brand Personality
 
-Premium and sober (per business owner: "Premium e sóbrio"). Confident, understated, institutional-grade — not clinical-cold, not falsely cheerful. Should read as a serious healthcare staffing/homecare operator a hospital would trust with SCP contracts, while still feeling human enough for a family choosing homecare.
+Premium and sober (per business owner: "Premium e sóbrio"). Confident, understated, institutional-grade, not clinical-cold, not falsely cheerful. Should read as a serious healthcare staffing/homecare operator a hospital would trust with SCP contracts, while still feeling human enough for a family choosing homecare.
 
 ## Anti-references
 
@@ -22,10 +22,10 @@ Generic healthcare/insurance-plan clichés: red medical crosses, smiling-doctor 
 
 ## Design Principles
 
-- Sober confidence over cheerful marketing — the tone should read like a serious institutional partner, not a consumer app.
-- One scroll, two audiences — the page must let a family and a hospital procurement contact each find their own reassurance without feeling like two competing sites.
-- Calm, not clinical — blue conveys trust and precision without going cold or sterile.
-- Every visual flourish should reinforce trust (motion, dividers, hierarchy) — decoration for its own sake is out of register.
+- Sober confidence over cheerful marketing: the tone should read like a serious institutional partner, not a consumer app.
+- One scroll, two audiences: the page must let a family and a hospital procurement contact each find their own reassurance without feeling like two competing sites.
+- Calm, not clinical: blue conveys trust and precision without going cold or sterile.
+- Every visual flourish should reinforce trust (motion, dividers, hierarchy); decoration for its own sake is out of register.
 
 ## Accessibility & Inclusion
 
