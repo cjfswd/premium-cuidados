@@ -129,12 +129,6 @@
   .img-placeholder .ph-title{font-weight:600;font-size:13px;display:block;}
   .img-placeholder .ph-prompt{font-size:11px;color:rgba(255,255,255,0.75);display:block;margin-top:2px;}
   .hero-visual.img-placeholder{border-radius:24px;}
-  .scp-photo{
-    border-radius:16px;aspect-ratio:16/9;margin-top:26px;color:#fff;
-    background:radial-gradient(120% 120% at 25% 20%, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.05) 60%, rgba(255,255,255,0.02) 100%);
-    box-shadow:inset 0 0 0 1px rgba(255,255,255,0.18);
-  }
-  .scp-photo .icon-svg{opacity:.5;}
   .img-placeholder-circle{
     background:radial-gradient(120% 120% at 30% 25%, #ffffff 0%, var(--azul-suave) 100%);
     box-shadow:inset 0 0 0 1px rgba(21,101,192,0.18);
@@ -283,17 +277,28 @@
   .testimonials .section-title .tag{color:#fff;}
   .testimonials .section-title p{color:rgba(255,255,255,0.82);}
 
-  /* Continuous, indefinite marquee: JS drives scrollLeft frame by frame so
-     motion reads as one steady drift rather than a slide snapping between
-     stops. */
-  .carousel{
-    position:relative;
-  }
+  /* Continuous, indefinite marquee: a pure CSS transform loop, not JS-driven
+     scrolling. CSS animations keep running on the compositor even when the
+     tab loses focus or is backgrounded, unlike a requestAnimationFrame loop,
+     which browsers routinely suspend in that situation. The slide list is
+     duplicated once in markup (aria-hidden on the copy) so translateX(-50%)
+     wraps seamlessly with no visible seam. */
+  .carousel{position:relative;overflow:hidden;}
   .carousel-track{
-    display:flex;gap:20px;overflow-x:hidden;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none;
+    display:flex;gap:20px;width:max-content;
+    animation:marqueeScroll var(--marquee-duration, 40s) linear infinite;
   }
-  .carousel-track::-webkit-scrollbar{display:none;}
+  .carousel:hover .carousel-track,
+  .carousel:focus-within .carousel-track{animation-play-state:paused;}
+  @keyframes marqueeScroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .carousel{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+    .carousel-track{animation:none;width:auto;}
+    .carousel-track .carousel-clone{display:none;}
+  }
   .carousel-slide{flex:0 0 auto;width:82vw;max-width:340px;}
   .gallery-slide{aspect-ratio:4/3;border-radius:18px;}
   .testimonial-slide{
@@ -635,22 +640,6 @@
           <span>Fonoaudiólogos</span>
           <span>Psicólogos</span>
         </div>
-        <!--
-          IMAGEM SUGERIDA (SCP): foto de equipe médica/multidisciplinar em reunião
-          de coordenação de cuidado, ambiente clínico moderno.
-          Prompt de IA sugerido:
-          "Photo of a diverse multidisciplinary healthcare team (physician, nurse,
-          physiotherapist) in a coordination meeting inside a modern clinic hallway,
-          confident and professional mood, natural light, blue and white color
-          palette, no text, no logos, photorealistic, 16:9 aspect ratio"
-        -->
-        <div class="img-placeholder scp-photo reveal-item" style="--i:3" data-ai-prompt="Photo of a diverse multidisciplinary healthcare team (physician, nurse, physiotherapist) in a coordination meeting inside a modern clinic hallway, confident and professional mood, natural light, blue and white color palette, no text, no logos, photorealistic, 16:9 aspect ratio">
-          <svg class="icon-svg"><use href="#ic-image"/></svg>
-          <div class="ph-caption">
-            <span class="ph-title">Foto: equipe multidisciplinar em ação</span>
-            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
-          </div>
-        </div>
       </div>
       <div class="credential-panel">
         <div class="credential-row reveal-item" style="--i:0">
@@ -693,37 +682,25 @@
     </div>
     <!--
       IMAGENS SUGERIDAS (equipe): fotos de rosto/retrato de cada disciplina,
-      estilo consistente entre si (mesmo enquadramento, mesma iluminação),
-      transmitindo confiança e profissionalismo.
-      Prompts de IA sugeridos (um por card, mesmo estilo visual):
-      1. Médicos: "Professional headshot portrait of a Brazilian physician in
-         white coat, warm confident smile, neutral light blue background,
-         photorealistic, square aspect ratio"
-      2. Enfermagem: "Professional headshot portrait of a Brazilian nurse in
-         scrubs, warm confident smile, neutral light blue background,
-         photorealistic, square aspect ratio"
-      3. Fisioterapia/Fono: "Professional headshot portrait of a Brazilian
-         physical therapist, warm confident smile, neutral light blue
-         background, photorealistic, square aspect ratio"
-      4. Psicologia: "Professional headshot portrait of a Brazilian
-         psychologist, warm confident smile, neutral light blue background,
-         photorealistic, square aspect ratio"
+      mesmo enquadramento e iluminação entre os 4 cards, mas cada prompt traz
+      elementos/figurino que caracterizam aquela profissão especificamente,
+      para que dê pra reconhecer o tipo de profissional só de bater o olho.
     -->
     <div class="team-grid">
       <div class="team-card reveal-item" style="--i:0">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian physician in white coat, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian physician, white coat over a collared shirt, stethoscope draped around the neck, ID badge clipped to the coat, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
         <h4>Médicos Especialistas</h4><span>Diversas especialidades</span>
       </div>
       <div class="team-card reveal-item" style="--i:1">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian nurse in scrubs, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian nurse, navy blue scrub uniform, scrub cap, holding a blood pressure cuff, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
         <h4>Enfermagem</h4><span>Enfermeiros e técnicos</span>
       </div>
       <div class="team-card reveal-item" style="--i:2">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian physical therapist, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian physical therapist, athletic-clinical polo shirt, holding a resistance exercise band, sporty rehab-gym feel, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
         <h4>Fisioterapia e Fono</h4><span>Reabilitação motora e da fala</span>
       </div>
       <div class="team-card reveal-item" style="--i:3">
-        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian psychologist, warm confident smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
+        <div class="avatar img-placeholder-circle" data-ai-prompt="Professional headshot portrait of a Brazilian psychologist, smart-casual blazer with no white coat, seated in a calm counseling-room setting, holding a notebook, warm approachable smile, neutral light blue background, photorealistic, square aspect ratio"><svg class="icon-svg"><use href="#ic-image"/></svg></div>
         <h4>Psicologia</h4><span>Suporte emocional</span>
       </div>
     </div>
@@ -744,7 +721,7 @@
     </div>
     <!-- GALERIA: 5 fotos distintas, um prompt de IA por slide (ver data-ai-prompt
          de cada .gallery-slide). Substituir cada placeholder pela imagem gerada. -->
-    <div class="carousel reveal-item" style="--i:0" data-speed="45">
+    <div class="carousel reveal-item" style="--i:0; --marquee-duration:32s">
       <div class="carousel-track">
         <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a home health caregiver helping an elderly patient walk with support in a bright home hallway in Rio de Janeiro, warm candid moment, natural light, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
           <svg class="icon-svg"><use href="#ic-image"/></svg>
@@ -802,7 +779,7 @@
     <!-- DEPOIMENTOS ILUSTRATIVOS: conteúdo fictício para fins de prototipagem.
          Substituir por depoimentos reais de pacientes, familiares e instituições
          parceiras antes de publicar oficialmente. -->
-    <div class="carousel reveal-item" style="--i:0" data-speed="26">
+    <div class="carousel reveal-item" style="--i:0; --marquee-duration:55s">
       <div class="carousel-track">
         <div class="carousel-slide testimonial-slide">
           <span class="quote-mark" aria-hidden="true">&ldquo;</span>
@@ -1023,47 +1000,22 @@
 
   // Continuous marquee: content is duplicated once so the track can drift
   // forever and wrap seamlessly, instead of snapping between discrete slides.
-  function initMarquee(root){
+  // Duplicate each carousel's slides once so the CSS marqueeScroll animation
+  // (translateX 0 -> -50%) has a matching second copy to wrap into. Motion
+  // itself is pure CSS, so it keeps running even if this script is slow,
+  // errors, or the tab is backgrounded, unlike a JS scroll-loop.
+  function duplicateCarouselSlides(root){
     var track = root.querySelector('.carousel-track');
-    var pxPerSecond = parseFloat(root.dataset.speed) || 40;
-
-    if (prefersReducedMotion) {
-      track.style.overflowX = 'auto';
-      return; // static, manually scrollable list; no auto-motion, no clones
-    }
-
     var originalSlides = Array.prototype.slice.call(track.children);
     originalSlides.forEach(function(node){
       var clone = node.cloneNode(true);
+      clone.classList.add('carousel-clone');
       clone.setAttribute('aria-hidden', 'true');
       clone.querySelectorAll('a, button').forEach(function(el){ el.tabIndex = -1; });
       track.appendChild(clone);
     });
-
-    var paused = false;
-    var lastTimestamp = null;
-
-    function frame(timestamp){
-      if (lastTimestamp === null) lastTimestamp = timestamp;
-      var delta = timestamp - lastTimestamp;
-      lastTimestamp = timestamp;
-      if (!paused) {
-        track.scrollLeft += (pxPerSecond * delta) / 1000;
-        var loopPoint = track.scrollWidth / 2;
-        if (track.scrollLeft >= loopPoint) track.scrollLeft -= loopPoint;
-      }
-      window.requestAnimationFrame(frame);
-    }
-    window.requestAnimationFrame(frame);
-
-    root.addEventListener('mouseenter', function(){ paused = true; });
-    root.addEventListener('mouseleave', function(){ paused = false; });
-    root.addEventListener('focusin', function(){ paused = true; });
-    root.addEventListener('focusout', function(){ paused = false; });
-    root.addEventListener('touchstart', function(){ paused = true; }, {passive:true});
-    root.addEventListener('touchend', function(){ paused = false; });
   }
-  document.querySelectorAll('.carousel').forEach(initMarquee);
+  document.querySelectorAll('.carousel').forEach(duplicateCarouselSlides);
 </script>
 
 </body>
