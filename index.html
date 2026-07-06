@@ -72,7 +72,17 @@
     position:relative;
     overflow:hidden;
   }
-  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;}
+  .hero-parallax-bg{
+    position:absolute;left:0;right:0;top:-15%;bottom:-15%;z-index:0;
+    will-change:transform;
+  }
+  .hero-parallax-bg::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg, rgba(232,243,255,0.92) 0%, rgba(255,255,255,0.85) 60%);
+  }
+  .hero-parallax-bg .ph-caption{top:24px;left:24px;bottom:auto;right:auto;max-width:240px;}
+  .hero-parallax-bg .icon-svg{display:none;}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;}
   .hero h1{font-size:clamp(30px,4.2vw,46px);font-weight:700;line-height:1.18;margin-bottom:20px;color:var(--azul-escuro);}
   .hero h1 span{color:var(--azul);}
   .hero p{font-size:18px;color:var(--cinza);margin-bottom:30px;max-width:520px;}
@@ -200,6 +210,14 @@
   .stat b{display:block;font-family:'Fraunces',serif;font-size:32px;color:var(--azul);font-weight:700;}
   .stat span{color:var(--cinza);font-size:14px;}
 
+  /* Stats (count-up on scroll) */
+  .stats{background:var(--azul-escuro);color:#fff;}
+  .stats .section-title{margin-bottom:50px;}
+  .stats .section-title h2{color:#fff;}
+  .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:40px;text-align:center;}
+  .counter-value{font-family:'Fraunces',serif;font-size:clamp(32px,4vw,44px);font-weight:700;color:#fff;line-height:1;}
+  .counter-label{color:rgba(255,255,255,0.75);font-size:14px;margin-top:10px;}
+
   /* Services */
   .services{background:var(--azul-suave);}
   .cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px;}
@@ -257,6 +275,54 @@
   .team-card .avatar .icon-svg{width:26px;height:26px;}
   .team-card h4{color:var(--azul-escuro);margin-bottom:4px;font-size:16px;}
   .team-card span{color:var(--cinza);font-size:13px;}
+
+  /* Gallery & Testimonials carousels (shared .carousel component) */
+  .gallery{background:var(--azul-suave);}
+  .testimonials{background:var(--azul-escuro);color:#fff;}
+  .testimonials .section-title h2{color:#fff;}
+  .testimonials .section-title .tag{color:#fff;}
+  .testimonials .section-title p{color:rgba(255,255,255,0.82);}
+
+  .carousel{position:relative;padding:0 8px;}
+  .carousel-track{
+    display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 4px 8px;
+  }
+  .carousel-track::-webkit-scrollbar{display:none;}
+  .carousel-slide{scroll-snap-align:start;flex:0 0 82%;}
+  @media(min-width:640px){.carousel-slide{flex:0 0 360px;}}
+  .gallery-slide{aspect-ratio:4/3;border-radius:18px;}
+  .testimonial-slide{
+    background:#fff;border-radius:18px;padding:32px;box-shadow:0 8px 20px rgba(10,61,98,0.18);
+    display:flex;flex-direction:column;gap:14px;color:var(--azul-escuro);
+  }
+  .quote-mark{font-family:'Fraunces',serif;font-size:52px;color:var(--azul-claro);line-height:.6;}
+  .testimonial-text{color:var(--azul-escuro);font-size:16px;font-style:italic;flex:1;}
+  .testimonial-author{display:flex;align-items:center;gap:12px;}
+  .testimonial-author .avatar{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--azul);}
+  .testimonial-author strong{display:block;font-size:14px;color:var(--azul-escuro);}
+  .testimonial-author span{font-size:13px;color:var(--cinza);}
+
+  .carousel-arrow{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;background:#fff;color:var(--azul);
+    display:flex;align-items:center;justify-content:center;border:none;
+    box-shadow:0 8px 20px rgba(10,61,98,0.18);cursor:pointer;z-index:2;
+    transition:background .2s var(--ease), color .2s var(--ease);
+  }
+  .carousel-arrow .icon-svg{width:20px;height:20px;}
+  .carousel-arrow:hover{background:var(--azul);color:#fff;}
+  .carousel-arrow.prev{left:-8px;}
+  .carousel-arrow.next{right:-8px;}
+  @media(max-width:640px){.carousel-arrow{display:none;}}
+  .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:20px;}
+  .carousel-dots button{
+    width:8px;height:8px;border-radius:50%;background:rgba(21,101,192,0.25);border:none;padding:0;cursor:pointer;
+    transition:background .2s var(--ease), transform .2s var(--ease);
+  }
+  .carousel-dots button.active{background:var(--azul);transform:scale(1.3);}
+  .testimonials .carousel-dots button{background:rgba(255,255,255,0.3);}
+  .testimonials .carousel-dots button.active{background:#fff;}
 
   /* Contact */
   .contact{background:var(--azul-suave);}
@@ -365,6 +431,8 @@
     <symbol id="ic-close" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
     <symbol id="ic-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></symbol>
     <symbol id="ic-whatsapp" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.16c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.12.11-1.81-.11-.42-.13-.96-.31-1.65-.6-2.9-1.25-4.8-4.16-4.94-4.35-.15-.19-1.18-1.57-1.18-3 0-1.42.75-2.12 1.01-2.41.27-.28.58-.35.78-.35.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.83 2 .9 2.14.07.15.12.32.02.51-.09.19-.14.31-.27.48-.14.17-.29.37-.41.5-.14.14-.28.29-.12.57.15.28.68 1.13 1.47 1.83 1.02.9 1.87 1.19 2.15 1.32.28.14.44.12.61-.07.17-.19.71-.83.9-1.11.19-.28.37-.24.61-.15.24.09 1.55.73 1.82.87.27.14.44.2.51.31.07.11.07.65-.17 1.33z"/></symbol>
+    <symbol id="ic-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+    <symbol id="ic-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
   </defs>
 </svg>
 
@@ -392,6 +460,22 @@
 </header>
 
 <section class="hero" id="top">
+  <!--
+    IMAGEM SUGERIDA (parallax de fundo do hero): cena ampla e suave, fora de foco,
+    para servir de camada atmosférica atrás do texto (parallax ao rolar a página).
+    Deve ser MUITO suave/desfocada para não competir com o texto nem com a foto
+    em primeiro plano (.hero-visual). Prompt de IA sugerido:
+    "Extremely soft, out-of-focus photo of warm natural light streaming through
+    sheer curtains in a bright home interior, pastel blue and white tones, heavy
+    bokeh, abstract and atmospheric, no visible people, no text, no logos,
+    ultra-wide soft-focus background photography, 21:9 aspect ratio"
+  -->
+  <div class="hero-parallax-bg img-placeholder" aria-hidden="true" data-ai-prompt="Extremely soft, out-of-focus photo of warm natural light streaming through sheer curtains in a bright home interior, pastel blue and white tones, heavy bokeh, abstract and atmospheric, no visible people, no text, no logos, ultra-wide soft-focus background photography, 21:9 aspect ratio">
+    <div class="ph-caption">
+      <span class="ph-title">Fundo parallax: luz e textura ambiente</span>
+      <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
+    </div>
+  </div>
   <div class="container hero-grid">
     <div>
       <h1 class="hero-anim" style="animation-delay:0ms">Cuidado <span>multidisciplinar</span> e humano onde você precisar</h1>
@@ -456,6 +540,42 @@
           <h3>Cuidado em Casa</h3>
           <p>Serviços de homecare personalizados, levando conforto e segurança para o tratamento do paciente em seu próprio lar.</p>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,55 C240,95 480,15 720,55 C960,95 1200,25 1440,55 L1440,100 L0,100 Z" fill="#0a3d62" fill-opacity="0.5"/>
+      <path d="M0,40 C240,0 480,85 720,40 C960,0 1200,70 1440,40 L1440,100 L0,100 Z" fill="#0a3d62"/>
+    </svg>
+  </div>
+</section>
+
+<!-- NÚMEROS: figuras ilustrativas para fins de prototipagem, ainda sem base em
+     dados reais da operação. Ajustar data-target de cada .counter-number para
+     os números reais antes de publicar oficialmente (exceto "anos de empresa",
+     que o cliente pediu para não usar). -->
+<section class="stats" id="numeros">
+  <div class="container">
+    <div class="section-title">
+      <h2>Números que refletem nosso trabalho</h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-counter reveal-item" style="--i:0">
+        <div class="counter-value"><span class="counter-number" data-target="140">0</span>+</div>
+        <div class="counter-label">Profissionais especializados</div>
+      </div>
+      <div class="stat-counter reveal-item" style="--i:1">
+        <div class="counter-value"><span class="counter-number" data-target="900">0</span>+</div>
+        <div class="counter-label">Famílias atendidas em homecare</div>
+      </div>
+      <div class="stat-counter reveal-item" style="--i:2">
+        <div class="counter-value"><span class="counter-number" data-target="12">0</span>+</div>
+        <div class="counter-label">Instituições de saúde atendidas</div>
+      </div>
+      <div class="stat-counter reveal-item" style="--i:3">
+        <div class="counter-value"><span class="counter-number" data-target="3200">0</span>+</div>
+        <div class="counter-label">Atendimentos realizados</div>
       </div>
     </div>
   </div>
@@ -635,6 +755,123 @@
   </div>
 </section>
 
+<section class="gallery" id="galeria">
+  <div class="container">
+    <div class="section-title">
+      <h2>Momentos de cuidado</h2>
+      <p>Um retrato de como atuamos no dia a dia, em casa e ao lado das instituições parceiras.</p>
+    </div>
+    <!-- GALERIA: 5 fotos distintas, um prompt de IA por slide (ver data-ai-prompt
+         de cada .gallery-slide). Substituir cada placeholder pela imagem gerada. -->
+    <div class="carousel reveal-item" style="--i:0" data-autoplay="4200">
+      <div class="carousel-track">
+        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a home health caregiver helping an elderly patient walk with support in a bright home hallway in Rio de Janeiro, warm candid moment, natural light, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
+          <svg class="icon-svg"><use href="#ic-image"/></svg>
+          <div class="ph-caption">
+            <span class="ph-title">Foto: caminhada assistida em casa</span>
+            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
+          </div>
+        </div>
+        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a nurse gently checking blood pressure of a smiling elderly patient seated in a cozy living room, warm natural light, genuine connection, soft blue tones, no text, no logos, photorealistic, 4:3 aspect ratio">
+          <svg class="icon-svg"><use href="#ic-image"/></svg>
+          <div class="ph-caption">
+            <span class="ph-title">Foto: acompanhamento de enfermagem</span>
+            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
+          </div>
+        </div>
+        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a physical therapist guiding an elderly patient through a light stretching exercise at home, encouraging expression, bright interior, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
+          <svg class="icon-svg"><use href="#ic-image"/></svg>
+          <div class="ph-caption">
+            <span class="ph-title">Foto: sessão de fisioterapia em casa</span>
+            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
+          </div>
+        </div>
+        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of a small multidisciplinary care team (nurse, physician, therapist) having a relaxed coordination chat in a bright modern clinic break room, candid and warm, no text, no logos, photorealistic, 4:3 aspect ratio">
+          <svg class="icon-svg"><use href="#ic-image"/></svg>
+          <div class="ph-caption">
+            <span class="ph-title">Foto: equipe em coordenação de cuidado</span>
+            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
+          </div>
+        </div>
+        <div class="carousel-slide gallery-slide img-placeholder" data-ai-prompt="Photo of an elderly patient and family member sharing a joyful smiling moment on a home visit day, warm afternoon light, soft blue color grading, no text, no logos, photorealistic, 4:3 aspect ratio">
+          <svg class="icon-svg"><use href="#ic-image"/></svg>
+          <div class="ph-caption">
+            <span class="ph-title">Foto: momento em família</span>
+            <span class="ph-prompt">Substituir por imagem gerada via IA (ver prompt no código-fonte)</span>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow prev" aria-label="Foto anterior"><svg class="icon-svg"><use href="#ic-chevron-left"/></svg></button>
+      <button class="carousel-arrow next" aria-label="Próxima foto"><svg class="icon-svg"><use href="#ic-chevron-right"/></svg></button>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,55 C240,95 480,15 720,55 C960,95 1200,25 1440,55 L1440,100 L0,100 Z" fill="#0a3d62" fill-opacity="0.5"/>
+      <path d="M0,40 C240,0 480,85 720,40 C960,0 1200,70 1440,40 L1440,100 L0,100 Z" fill="#0a3d62"/>
+    </svg>
+  </div>
+</section>
+
+<section class="testimonials" id="depoimentos">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag">Depoimentos</span>
+      <h2>Quem confia na Premium Cuidados</h2>
+      <p>Relatos de como o cuidado chega até quem mais precisa.</p>
+    </div>
+    <!-- DEPOIMENTOS ILUSTRATIVOS: conteúdo fictício para fins de prototipagem.
+         Substituir por depoimentos reais de pacientes, familiares e instituições
+         parceiras antes de publicar oficialmente. -->
+    <div class="carousel reveal-item" style="--i:0" data-autoplay="5200">
+      <div class="carousel-track">
+        <div class="carousel-slide testimonial-slide">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <p class="testimonial-text">A equipe da Premium Cuidados trouxe tranquilidade para toda a família num momento muito difícil. Sentimos que meu pai estava em boas mãos, dia e noite.</p>
+          <div class="testimonial-author">
+            <div class="avatar img-placeholder-circle" aria-hidden="true"><svg class="icon-svg" style="width:18px;height:18px;"><use href="#ic-heart"/></svg></div>
+            <div><strong>Marina S.</strong><span>Familiar de paciente</span></div>
+          </div>
+        </div>
+        <div class="carousel-slide testimonial-slide">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <p class="testimonial-text">A capacidade de montar uma equipe multidisciplinar completa em poucos dias fez toda a diferença na nossa operação.</p>
+          <div class="testimonial-author">
+            <div class="avatar img-placeholder-circle" aria-hidden="true"><svg class="icon-svg" style="width:18px;height:18px;"><use href="#ic-building"/></svg></div>
+            <div><strong>Coordenação de Enfermagem</strong><span>Instituição parceira</span></div>
+          </div>
+        </div>
+        <div class="carousel-slide testimonial-slide">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <p class="testimonial-text">Profissionalismo e humanidade andam juntos aqui. Isso é raro de encontrar num serviço de homecare.</p>
+          <div class="testimonial-author">
+            <div class="avatar img-placeholder-circle" aria-hidden="true"><svg class="icon-svg" style="width:18px;height:18px;"><use href="#ic-heart"/></svg></div>
+            <div><strong>Roberto A.</strong><span>Familiar de paciente</span></div>
+          </div>
+        </div>
+        <div class="carousel-slide testimonial-slide">
+          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+          <p class="testimonial-text">O acompanhamento foi presente, claro e sem burocracia desnecessária, do primeiro contato ao dia a dia da equipe.</p>
+          <div class="testimonial-author">
+            <div class="avatar img-placeholder-circle" aria-hidden="true"><svg class="icon-svg" style="width:18px;height:18px;"><use href="#ic-building"/></svg></div>
+            <div><strong>Direção Clínica</strong><span>Instituição parceira</span></div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-arrow prev" aria-label="Depoimento anterior"><svg class="icon-svg"><use href="#ic-chevron-left"/></svg></button>
+      <button class="carousel-arrow next" aria-label="Próximo depoimento"><svg class="icon-svg"><use href="#ic-chevron-right"/></svg></button>
+      <div class="carousel-dots"></div>
+    </div>
+  </div>
+  <div class="wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path class="wave-line-back" d="M0,45 C240,85 480,5 720,45 C960,85 1200,15 1440,45 L1440,100 L0,100 Z" fill="#e8f3ff" fill-opacity="0.5"/>
+      <path d="M0,60 C240,20 480,100 720,60 C960,20 1200,90 1440,60 L1440,100 L0,100 Z" fill="#e8f3ff"/>
+    </svg>
+  </div>
+</section>
+
 <section class="contact" id="contato">
   <div class="container">
     <div class="section-title">
@@ -754,6 +991,113 @@
     }, {threshold:0.15});
     revealItems.forEach(function(el){ revealObserver.observe(el); });
   }
+
+  // Hero parallax background (page-scroll depth layer)
+  var parallaxBg = document.querySelector('.hero-parallax-bg');
+  if (parallaxBg && !prefersReducedMotion) {
+    var parallaxTicking = false;
+    var updateParallax = function(){
+      parallaxBg.style.transform = 'translateY(' + (window.scrollY * 0.25) + 'px)';
+      parallaxTicking = false;
+    };
+    window.addEventListener('scroll', function(){
+      if (!parallaxTicking) {
+        window.requestAnimationFrame(updateParallax);
+        parallaxTicking = true;
+      }
+    }, {passive:true});
+    updateParallax();
+  }
+
+  // Count-up stat numbers: animate on entry, reset when scrolled past
+  var counterEls = document.querySelectorAll('.counter-number');
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    counterEls.forEach(function(el){ el.textContent = el.dataset.target; });
+  } else {
+    var animateCounter = function(el, target){
+      var startTime = null;
+      var duration = 1300;
+      function tick(timestamp){
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target).toLocaleString('pt-BR');
+        if (progress < 1) {
+          el._counterFrame = window.requestAnimationFrame(tick);
+        } else {
+          el.textContent = target.toLocaleString('pt-BR');
+        }
+      }
+      window.cancelAnimationFrame(el._counterFrame);
+      el._counterFrame = window.requestAnimationFrame(tick);
+    };
+    var counterObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        var el = entry.target;
+        var target = parseInt(el.dataset.target, 10);
+        if (entry.isIntersecting) {
+          animateCounter(el, target);
+        } else {
+          window.cancelAnimationFrame(el._counterFrame);
+          el.textContent = '0';
+        }
+      });
+    }, {threshold:0.4});
+    counterEls.forEach(function(el){ counterObserver.observe(el); });
+  }
+
+  // Generic carousel: scroll-snap track with autoplay, arrows, and dots
+  function initCarousel(root){
+    var track = root.querySelector('.carousel-track');
+    var slides = Array.prototype.slice.call(track.children);
+    var dotsWrap = root.querySelector('.carousel-dots');
+    var prevBtn = root.querySelector('.carousel-arrow.prev');
+    var nextBtn = root.querySelector('.carousel-arrow.next');
+    var index = 0;
+    var autoplayMs = parseInt(root.dataset.autoplay, 10) || 4500;
+    var timer = null;
+
+    var dots = slides.map(function(_, i){
+      var dot = document.createElement('button');
+      dot.setAttribute('aria-label', 'Ir para o item ' + (i + 1));
+      dot.addEventListener('click', function(){ goTo(i); resetAutoplay(); });
+      dotsWrap.appendChild(dot);
+      return dot;
+    });
+
+    function updateDots(){
+      dots.forEach(function(dot, i){ dot.classList.toggle('active', i === index); });
+    }
+    function goTo(i){
+      index = (i + slides.length) % slides.length;
+      var slide = slides[index];
+      track.scrollTo({
+        left: slide.offsetLeft - track.offsetLeft,
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+      updateDots();
+    }
+    function next(){ goTo(index + 1); }
+    function prev(){ goTo(index - 1); }
+    function startAutoplay(){
+      if (prefersReducedMotion) return;
+      stopAutoplay();
+      timer = window.setInterval(next, autoplayMs);
+    }
+    function stopAutoplay(){ window.clearInterval(timer); }
+    function resetAutoplay(){ startAutoplay(); }
+
+    if (prevBtn) prevBtn.addEventListener('click', function(){ prev(); resetAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', function(){ next(); resetAutoplay(); });
+    root.addEventListener('mouseenter', stopAutoplay);
+    root.addEventListener('mouseleave', startAutoplay);
+    root.addEventListener('focusin', stopAutoplay);
+    root.addEventListener('focusout', startAutoplay);
+
+    updateDots();
+    startAutoplay();
+  }
+  document.querySelectorAll('.carousel').forEach(initCarousel);
 </script>
 
 </body>
