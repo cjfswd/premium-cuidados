@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premium Cuidados | Homecare e Equipes Multidisciplinares</title>
+<meta name="description" content="Premium Cuidados - Assistência multidisciplinar em homecare, equipes médicas e contratação SCP para hospitais no Rio de Janeiro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul-escuro:#0a3d62;
+    --azul:#1565c0;
+    --azul-claro:#4fa8f7;
+    --azul-suave:#e8f3ff;
+    --branco:#ffffff;
+    --cinza:#5b6b7a;
+    --whatsapp:#25d366;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Poppins',sans-serif;
+    color:var(--azul-escuro);
+    background:var(--branco);
+    line-height:1.6;
+  }
+  a{text-decoration:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* Header */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    background:rgba(255,255,255,0.97);
+    box-shadow:0 2px 12px rgba(10,61,98,0.08);
+    z-index:1000;
+  }
+  .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1180px;margin:0 auto;}
+  .logo{font-size:22px;font-weight:800;color:var(--azul-escuro);}
+  .logo span{color:var(--azul);}
+  nav ul{display:flex;gap:32px;list-style:none;}
+  nav a{font-weight:500;color:var(--azul-escuro);transition:color .2s;}
+  nav a:hover{color:var(--azul);}
+  .nav-cta{
+    background:var(--azul);color:#fff;padding:10px 22px;border-radius:30px;font-weight:600;
+    transition:background .2s;
+  }
+  .nav-cta:hover{background:var(--azul-escuro);}
+  .menu-toggle{display:none;background:none;border:none;font-size:26px;color:var(--azul-escuro);cursor:pointer;}
+
+  /* Hero */
+  .hero{
+    padding:170px 0 90px;
+    background:linear-gradient(135deg,var(--azul-suave) 0%,#ffffff 60%);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:50px;align-items:center;}
+  .hero h1{font-size:44px;font-weight:800;line-height:1.2;margin-bottom:20px;color:var(--azul-escuro);}
+  .hero h1 span{color:var(--azul);}
+  .hero p{font-size:18px;color:var(--cinza);margin-bottom:30px;max-width:520px;}
+  .hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 30px;border-radius:30px;font-weight:600;font-size:16px;
+    transition:transform .2s, box-shadow .2s;
+  }
+  .btn-primary{background:var(--azul);color:#fff;box-shadow:0 8px 20px rgba(21,101,192,0.3);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(21,101,192,0.4);}
+  .btn-outline{border:2px solid var(--azul);color:var(--azul);}
+  .btn-outline:hover{background:var(--azul);color:#fff;}
+  .hero-visual{
+    background:var(--azul-escuro);
+    border-radius:24px;
+    height:400px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,var(--azul) 0%,var(--azul-escuro) 100%);
+    box-shadow:0 25px 50px rgba(10,61,98,0.25);
+  }
+  .hero-visual .icon-cross{
+    font-size:100px;color:rgba(255,255,255,0.9);
+  }
+
+  /* Sections common */
+  section{padding:90px 0;}
+  .section-title{text-align:center;max-width:680px;margin:0 auto 60px;}
+  .section-title .tag{
+    display:inline-block;background:var(--azul-suave);color:var(--azul);
+    padding:6px 18px;border-radius:20px;font-weight:600;font-size:13px;letter-spacing:.5px;
+    margin-bottom:16px;text-transform:uppercase;
+  }
+  .section-title h2{font-size:34px;font-weight:800;color:var(--azul-escuro);margin-bottom:14px;}
+  .section-title p{color:var(--cinza);font-size:16px;}
+
+  /* About */
+  .about{background:var(--branco);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .about-card{
+    background:var(--azul-suave);border-radius:20px;padding:40px;
+  }
+  .about-card h3{color:var(--azul-escuro);font-size:22px;margin-bottom:14px;}
+  .about-card p{color:var(--cinza);}
+  .stat-row{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap;}
+  .stat{flex:1;min-width:120px;}
+  .stat b{display:block;font-size:32px;color:var(--azul);font-weight:800;}
+  .stat span{color:var(--cinza);font-size:14px;}
+
+  /* Services */
+  .services{background:var(--azul-suave);}
+  .cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;}
+  .card{
+    background:#fff;border-radius:18px;padding:36px 28px;
+    box-shadow:0 10px 30px rgba(10,61,98,0.08);
+    transition:transform .25s, box-shadow .25s;
+    border:1px solid #eef4fb;
+  }
+  .card:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(10,61,98,0.15);}
+  .card .icon{
+    width:60px;height:60px;border-radius:14px;background:var(--azul-suave);
+    display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:20px;color:var(--azul);
+  }
+  .card h3{font-size:19px;margin-bottom:10px;color:var(--azul-escuro);}
+  .card p{color:var(--cinza);font-size:15px;}
+
+  /* SCP hospitais section */
+  .scp{background:linear-gradient(135deg,var(--azul-escuro),var(--azul));color:#fff;}
+  .scp .section-title h2, .scp .section-title p{color:#fff;}
+  .scp .section-title .tag{background:rgba(255,255,255,0.15);color:#fff;}
+  .scp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .scp-item{
+    background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);
+    border-radius:16px;padding:26px;display:flex;gap:16px;align-items:flex-start;
+  }
+  .scp-item .num{
+    font-size:26px;font-weight:800;color:var(--azul-claro);min-width:40px;
+  }
+  .scp-item h4{margin-bottom:6px;font-size:17px;}
+  .scp-item p{color:rgba(255,255,255,0.8);font-size:14px;}
+
+  /* Team */
+  .team{background:#fff;}
+  .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;}
+  .team-card{text-align:center;padding:30px 16px;border-radius:16px;background:var(--azul-suave);}
+  .team-card .avatar{
+    width:70px;height:70px;border-radius:50%;background:var(--azul);
+    display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+    color:#fff;font-size:26px;font-weight:700;
+  }
+  .team-card h4{color:var(--azul-escuro);margin-bottom:4px;}
+  .team-card span{color:var(--cinza);font-size:13px;}
+
+  /* Contact */
+  .contact{background:var(--azul-suave);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;}
+  .contact-info-card{
+    background:#fff;border-radius:20px;padding:40px;box-shadow:0 10px 30px rgba(10,61,98,0.08);
+  }
+  .info-row{display:flex;gap:16px;margin-bottom:24px;align-items:flex-start;}
+  .info-row .icon{
+    width:46px;height:46px;border-radius:12px;background:var(--azul-suave);color:var(--azul);
+    display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+  }
+  .info-row h4{color:var(--azul-escuro);font-size:16px;margin-bottom:4px;}
+  .info-row p{color:var(--cinza);font-size:15px;}
+  .map-embed{border-radius:20px;overflow:hidden;box-shadow:0 10px 30px rgba(10,61,98,0.08);min-height:380px;}
+  .map-embed iframe{width:100%;height:100%;min-height:380px;border:0;}
+
+  /* Footer */
+  footer{background:var(--azul-escuro);color:#fff;padding:50px 0 24px;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:30px;}
+  footer h3{margin-bottom:14px;}
+  footer p, footer a{color:rgba(255,255,255,0.75);font-size:14px;}
+  footer ul{list-style:none;}
+  footer li{margin-bottom:10px;}
+  footer a:hover{color:#fff;}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.15);padding-top:20px;text-align:center;
+    color:rgba(255,255,255,0.6);font-size:13px;
+  }
+
+  /* WhatsApp floating button */
+  .whatsapp-float{
+    position:fixed;bottom:26px;right:26px;
+    background:var(--whatsapp);color:#fff;
+    width:64px;height:64px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(37,211,102,0.5);
+    z-index:1000;font-size:32px;
+    animation:pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{box-shadow:0 0 0 0 rgba(37,211,102,0.5);}
+    70%{box-shadow:0 0 0 16px rgba(37,211,102,0);}
+    100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
+  }
+
+  @media(max-width:900px){
+    nav ul{display:none;}
+    .menu-toggle{display:block;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-visual{order:-1;height:260px;}
+    .about-grid{grid-template-columns:1fr;}
+    .cards-grid{grid-template-columns:1fr 1fr;}
+    .scp-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr 1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .hero h1{font-size:32px;}
+  }
+  @media(max-width:520px){
+    .cards-grid{grid-template-columns:1fr;}
+    .team-grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <a class="logo" href="#top">Premium <span>Cuidados</span></a>
+    <nav>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#scp">SCP Hospitais</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/5521965292795" target="_blank" rel="noopener">Fale Conosco</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div>
+      <h1>Cuidado <span>multidisciplinar</span> e humano onde você precisar</h1>
+      <p>A Premium Cuidados oferece assistência homecare completa e equipes médicas e multidisciplinares, além de contratação SCP para hospitais, com excelência e acolhimento.</p>
+      <div class="hero-btns">
+        <a class="btn btn-primary" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
+          💬 Falar no WhatsApp
+        </a>
+        <a class="btn btn-outline" href="#servicos">Nossos Serviços</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="icon-cross">🩺</div>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="container about-grid">
+    <div>
+      <div class="section-title" style="text-align:left;margin:0 0 20px;">
+        <span class="tag">Sobre nós</span>
+        <h2>Assistência multidisciplinar com quem entende de cuidado</h2>
+      </div>
+      <p style="color:var(--cinza);margin-bottom:20px;">A Premium Cuidados atua no homecare e na formação de equipes multidisciplinares e médicas, oferecendo suporte completo para pacientes, famílias e instituições hospitalares através da contratação SCP (Sociedade em Conta de Participação).</p>
+      <p style="color:var(--cinza);">Nosso compromisso é proporcionar cuidado de qualidade, com profissionais qualificados e um atendimento humanizado, seguro e personalizado.</p>
+      <div class="stat-row">
+        <div class="stat"><b>+10</b><span>Anos de experiência</span></div>
+        <div class="stat"><b>24h</b><span>Disponibilidade</span></div>
+        <div class="stat"><b>100%</b><span>Foco no paciente</span></div>
+      </div>
+    </div>
+    <div class="about-card">
+      <h3>🏥 Parceria com Hospitais</h3>
+      <p>Trabalhamos em modelo SCP com instituições hospitalares, disponibilizando equipes médicas e multidisciplinares completas, com gestão eficiente e conformidade contratual.</p>
+      <br>
+      <h3>🏠 Cuidado em Casa</h3>
+      <p>Serviços de homecare personalizados, levando conforto e segurança para o tratamento do paciente em seu próprio lar.</p>
+    </div>
+  </div>
+</section>
+
+<section class="services" id="servicos">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag">Serviços</span>
+      <h2>O que oferecemos</h2>
+      <p>Soluções completas em saúde para pacientes, famílias e instituições.</p>
+    </div>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="icon">🏠</div>
+        <h3>Homecare</h3>
+        <p>Atendimento domiciliar completo, com equipe multidisciplinar dedicada ao conforto e recuperação do paciente.</p>
+      </div>
+      <div class="card">
+        <div class="icon">👩‍⚕️</div>
+        <h3>Equipes Multidisciplinares</h3>
+        <p>Médicos, enfermeiros, fisioterapeutas, nutricionistas e psicólogos atuando de forma integrada.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🏥</div>
+        <h3>Contratação SCP para Hospitais</h3>
+        <p>Modelo de Sociedade em Conta de Participação para fornecimento de equipes médicas a instituições hospitalares.</p>
+      </div>
+      <div class="card">
+        <div class="icon">💉</div>
+        <h3>Enfermagem Especializada</h3>
+        <p>Profissionais de enfermagem capacitados para cuidados intensivos, curativos e procedimentos clínicos.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🧠</div>
+        <h3>Suporte Psicológico</h3>
+        <p>Acompanhamento psicológico para pacientes e familiares durante todo o processo de tratamento.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🍎</div>
+        <h3>Nutrição e Fisioterapia</h3>
+        <p>Planos nutricionais e sessões de fisioterapia voltados à recuperação e qualidade de vida do paciente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scp" id="scp">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag">Para Hospitais</span>
+      <h2>Contratação SCP</h2>
+      <p>Um modelo de parceria eficiente para instituições hospitalares que precisam de equipes qualificadas.</p>
+    </div>
+    <div class="scp-grid">
+      <div class="scp-item">
+        <div class="num">01</div>
+        <div><h4>Gestão de Equipes</h4><p>Recrutamento, alocação e gestão completa de profissionais médicos e multidisciplinares.</p></div>
+      </div>
+      <div class="scp-item">
+        <div class="num">02</div>
+        <div><h4>Conformidade Contratual</h4><p>Contratos SCP estruturados conforme a legislação vigente, com segurança jurídica para o hospital.</p></div>
+      </div>
+      <div class="scp-item">
+        <div class="num">03</div>
+        <div><h4>Flexibilidade Operacional</h4><p>Adaptação rápida às necessidades de escala e demanda da instituição contratante.</p></div>
+      </div>
+      <div class="scp-item">
+        <div class="num">04</div>
+        <div><h4>Qualidade Assistencial</h4><p>Profissionais selecionados e capacitados para manter o padrão de excelência hospitalar.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="equipe">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag">Nossa Equipe</span>
+      <h2>Profissionais dedicados ao cuidado</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card"><div class="avatar">MD</div><h4>Médicos</h4><span>Diversas especialidades</span></div>
+      <div class="team-card"><div class="avatar">EF</div><h4>Enfermagem</h4><span>Cuidados especializados</span></div>
+      <div class="team-card"><div class="avatar">FT</div><h4>Fisioterapia</h4><span>Reabilitação motora</span></div>
+      <div class="team-card"><div class="avatar">PS</div><h4>Psicologia</h4><span>Suporte emocional</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="container">
+    <div class="section-title">
+      <span class="tag">Contato</span>
+      <h2>Fale com a Premium Cuidados</h2>
+      <p>Estamos prontos para atender você, sua família ou sua instituição.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info-card">
+        <div class="info-row">
+          <div class="icon">📍</div>
+          <div>
+            <h4>Endereço</h4>
+            <p>Av. Embaixador Abelardo Bueno, 3500, Sl. 1102<br>Barra da Tijuca, Rio de Janeiro - RJ<br>22775-040, Brasil</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">📞</div>
+          <div>
+            <h4>Telefone / WhatsApp</h4>
+            <p>+55 21 96529-2795</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="icon">⏰</div>
+          <div>
+            <h4>Atendimento</h4>
+            <p>Disponível 24 horas, todos os dias da semana</p>
+          </div>
+        </div>
+        <a class="btn btn-primary" style="width:100%;justify-content:center;margin-top:10px;" href="https://wa.me/5521965292795" target="_blank" rel="noopener">
+          💬 Enviar mensagem no WhatsApp
+        </a>
+      </div>
+      <div class="map-embed">
+        <iframe
+          src="https://www.google.com/maps?q=Av.+Embaixador+Abelardo+Bueno,+3500,+Barra+da+Tijuca,+Rio+de+Janeiro+-+RJ,+22775-040&output=embed"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <h3>Premium Cuidados</h3>
+      <p>Assistência multidisciplinar em homecare e contratação SCP para hospitais, com cuidado humano e profissional.</p>
+    </div>
+    <div>
+      <h3>Links</h3>
+      <ul>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#scp">SCP Hospitais</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Contato</h3>
+      <ul>
+        <li>+55 21 96529-2795</li>
+        <li>Barra da Tijuca, Rio de Janeiro - RJ</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    &copy; 2026 Premium Cuidados. Todos os direitos reservados.
+  </div>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/5521965292795" target="_blank" rel="noopener" aria-label="WhatsApp">
+  📱
+</a>
+
+</body>
+</html>
